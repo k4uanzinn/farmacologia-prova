@@ -1,0 +1,392 @@
+<!-- Salve este arquivo como index.html e abra no navegador -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Farmacologia — App de Estudo & Prova</title>
+<style>
+  :root{
+    --bg:#071026; --card:#0f1724; --muted:#9fb0c8; --accent:#7c3aed; --accent-2:#10b981;
+    --danger:#ef4444; --glass: rgba(255,255,255,0.02);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background:linear-gradient(180deg,var(--bg),#041022 160%); color:#e6eef8;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  .container{max-width:1100px;margin:28px auto;padding:20px;}
+  header{display:flex;gap:12px;align-items:center;justify-content:space-between;}
+  h1{margin:0;font-size:20px;}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:13px;}
+  .controls{display:flex;gap:8px;align-items:center;margin-top:14px;}
+  input.search{flex:1;padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.03);color:inherit}
+  button{background:var(--accent);border:none;padding:8px 10px;border-radius:8px;color:white;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04)}
+  main{display:grid;grid-template-columns:280px 1fr;gap:18px;margin-top:20px;}
+  nav.panel{background:linear-gradient(180deg,var(--card), #0c1220);padding:14px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+  nav h2{margin:0 0 8px 0;font-size:15px}
+  .sections-list button{display:block;width:100%;text-align:left;padding:8px;border-radius:8px;border:none;background:transparent;color:var(--muted);margin-bottom:6px;cursor:pointer}
+  .sections-list button.active{background:rgba(124,58,237,0.12);color:#eaf2ff}
+  .panel small{display:block;color:var(--muted);margin-top:10px}
+  section.content{padding:14px;background:linear-gradient(180deg,var(--card), #0b1526);border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.6);max-height:78vh;overflow:auto}
+  .card{background:var(--glass);padding:14px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.02)}
+  h3{margin:0 0 8px 0}
+  ul{margin:8px 0 0 18px}
+  details summary{cursor:pointer;outline:none}
+  .quiz-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px;background:#071126;border-radius:8px;margin-bottom:8px}
+  .vf-buttons button{width:42px;padding:6px;border-radius:6px;border:none;background:#0b1320;color:var(--muted);cursor:pointer}
+  .vf-buttons button.on-v{background:var(--accent-2);color:#021204}
+  .vf-buttons button.on-f{background:var(--danger);color:white}
+  .mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .opt{padding:10px;border-radius:8px;background:#07132a;border:1px solid rgba(255,255,255,0.02);cursor:pointer;text-align:left}
+  .opt.sel{background:rgba(124,58,237,0.16);border-color:rgba(124,58,237,0.4)}
+  .answer{margin-top:8px;color:var(--muted);font-size:13px}
+  footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+  .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  .prova-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .question{padding:12px;border-radius:10px;background:linear-gradient(180deg,#061024,#071026);border:1px solid rgba(255,255,255,0.02);margin-bottom:10px}
+  .question h4{margin:0 0 8px 0;font-size:15px}
+  .options{display:flex;flex-direction:column;gap:8px}
+  .optionLabel{display:flex;align-items:center;gap:8px;padding:10px;border-radius:8px;background:#071428;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+  .optionLabel input{accent-color:var(--accent)}
+  .correct{border-color:rgba(16,185,129,0.3);box-shadow:0 2px 8px rgba(16,185,129,0.06)}
+  .wrong{border-color:rgba(239,68,68,0.2);box-shadow:0 2px 8px rgba(239,68,68,0.04)}
+  .resultBox{padding:12px;border-radius:10px;background:linear-gradient(180deg,#071526,#071026);border:1px solid rgba(255,255,255,0.03);margin-top:10px}
+  .percent{font-size:28px;font-weight:700;color:var(--accent-2)}
+  .gabaritoList{margin-top:8px;color:var(--muted);font-size:13px}
+  @media (max-width:980px){
+    main{grid-template-columns:1fr; padding-bottom:60px}
+    nav.panel{order:2}
+  }
+  @media print{body{background:white;color:black} .no-print{display:none} .print-only{display:block}}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Farmacologia — App de Estudo & Prova</h1>
+        <p class="lead">Resumos + prova interativa (Desenvolvimento, URM, Antibióticos, SNC, Dor)</p>
+      </div>
+      <div class="no-print">
+        <div style="display:flex;gap:8px;">
+          <button onclick="window.print()">Imprimir / Exportar</button>
+          <button id="toggleAnswers" class="btn-secondary" onclick="toggleAnswersDisplay()">Mostrar gabaritos</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="controls no-print">
+      <input id="search" class="search" placeholder="Buscar tópico, palavra ou conceito..." oninput="applySearch()" />
+      <button onclick="clearSearch()" class="ghost">Limpar</button>
+    </div>
+
+    <main>
+      <nav class="panel no-print">
+        <h2>Seções</h2>
+        <div class="sections-list" id="sectionsList"></div>
+
+        <div style="margin-top:14px">
+          <small>Use a prova completa na aba principal. Você pode corrigir, ver gabarito e refazer.</small>
+        </div>
+      </nav>
+
+      <section class="content" id="contentArea">
+        <!-- Summaries -->
+        <div class="card" id="summariesCard">
+          <h3>Resumos (Rápido)</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px">
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+              <strong>Farmacocinética (ADME)</strong>
+              <ul style="margin-top:8px">
+                <li>Fase farmacêutica: dissolução/desintegração.</li>
+                <li>Absorção: difusão passiva, facilitada, transporte ativo, pinocitose.</li>
+                <li>Biodisponibilidade: ASC.</li>
+                <li>Distribuição: Vd, ligação a proteínas.</li>
+                <li>Metabolismo: fígado (CYP450) — Fase I e II.</li>
+                <li>Excreção: rins/bile; pH urinário altera eliminação.</li>
+              </ul>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+              <strong>Farmacodinâmica</strong>
+              <ul style="margin-top:8px">
+                <li>Ligações a receptores: agonistas/antagonistas/moduladores.</li>
+                <li>Potência vs eficácia vs seletividade.</li>
+                <li>Receptores: canais iônicos, GPCR, quinases, nucleares.</li>
+              </ul>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+              <strong>Formas Farmacêuticas</strong>
+              <ul style="margin-top:8px">
+                <li>Sólidas: comprimidos, cápsulas, pós, grânulos.</li>
+                <li>Semissólidas: cremes, pomadas.</li>
+                <li>Líquidas: soluções, suspensões, emulsões, xarope.</li>
+              </ul>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+              <strong>Vias de Administração</strong>
+              <ul style="margin-top:8px">
+                <li>Oral, Sublingual, Retal, Inalatória, Parenteral, Tópica.</li>
+                <li>Escolha influencia velocidade e biodisponibilidade.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROVA -->
+        <div class="card" id="provaCard">
+          <h3>Prova Completa — Desenvolvimento, URM, Antibióticos, SNC, Dor</h3>
+
+          <div class="prova-controls no-print" style="margin-top:10px">
+            <button onclick="startExam()" id="startBtn">Iniciar / Mostrar questões</button>
+            <button onclick="corrigirProva()" id="corrigirBtn" class="ghost">Corrigir prova</button>
+            <button onclick="resetProva()" id="resetBtn" class="ghost">Refazer prova</button>
+          </div>
+
+          <div id="examArea" style="margin-top:12px">
+            <!-- questions injected here -->
+          </div>
+
+          <div id="resultArea"></div>
+        </div>
+
+        <div class="card">
+          <h3>Dicas</h3>
+          <ul>
+            <li>Leia cada questão com atenção — cuidado com “sempre”, “nunca”.</li>
+            <li>Use o botão “Corrigir prova” assim que terminar — verá acertos, erros e porcentagem.</li>
+            <li>Refaça quantas vezes quiser para melhorar.</li>
+          </ul>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="no-print">
+      Feito para estudo — peça ajustes no estilo, número de questões ou exportação.
+    </footer>
+  </div>
+
+<script>
+/* ---------- Prova - questões e gabarito ---------- */
+const PROVA = [
+  { id:1, group:'Desenvolvimento de Fármacos', q:'Qual agência reguladora brasileira foi criada em 1999 e é responsável por monitorar o controle de qualidade dos medicamentos e seus preços?', options:['OMS','FDA','ANVISA','Ministério da Saúde'], answer:2 },
+  { id:2, group:'Desenvolvimento de Fármacos', q:'A fase I dos Ensaios Clínicos foca principalmente na:', options:['Confirmação da eficácia em milhares de pacientes.','Avaliação da segurança e da dosagem em um pequeno grupo de voluntários sadios.','Determinação de interações medicamentosas.','Monitoramento após a comercialização (Farmacovigilância).'], answer:1 },
+  { id:3, group:'Desenvolvimento de Fármacos', q:'Qual a principal diferença entre a Fase II e a Fase III dos Ensaios Clínicos?', options:['A Fase II usa animais e a Fase III usa humanos.','A Fase II avalia segurança e a Fase III avalia apenas eficácia.','A Fase III envolve um número muito maior de pacientes (milhares) em estudos multicêntricos para confirmação.','A Fase II dura mais tempo que a Fase III.'], answer:2 },
+  { id:4, group:'Desenvolvimento de Fármacos', q:'Qual é o objetivo da Farmacovigilância (Fase IV) no desenvolvimento de fármacos?', options:['Realizar a síntese química em larga escala.','Determinar a dose letal mediana (DL50).','Monitorar a segurança e eficácia do fármaco após sua comercialização e uso na população.','Avaliar a compatibilidade do princípio ativo com os excipientes.'], answer:2 },
+  { id:5, group:'Desenvolvimento de Fármacos', q:'O que é o "Princípio Ativo" de um medicamento?', options:['A substância que dá cor e sabor ao medicamento.','O veículo de administração da droga.','A substância inativa usada para compor a fórmula.','A substância presente na composição responsável pelo efeito farmacológico no organismo.'], answer:3 },
+
+  { id:6, group:'Uso Racional de Medicamentos (URM)', q:'De acordo com a OMS, o Uso Racional de Medicamentos (URM) envolve o uso em doses adequadas, por um período apropriado e, essencialmente, ao:', options:['Maior custo para a indústria.','Menor custo para si e para a comunidade.','Custo zero, pois o medicamento deve ser gratuito.','Menor custo apenas para o paciente.'], answer:1 },
+  { id:7, group:'Uso Racional de Medicamentos (URM)', q:'Qual é considerado o principal fator responsável pelos altos índices de intoxicação por medicamentos no Brasil, de acordo com o documento?', options:['Prescrição médica incorreta.','Falta de estoque nas farmácias.','Automedicação.','Gasto governamental insuficiente.'], answer:2 },
+  { id:8, group:'Uso Racional de Medicamentos (URM)', q:'Qual dos seguintes requisitos é essencial para que um medicamento seja considerado racionalmente usado?', options:['Ser um medicamento de marca (não genérico).','Ter uma indicação (ser necessário), ser efetivo e ser seguro (risco < benefício).','Ter sido comprado online para ser mais barato.','Ser um relaxante muscular ou analgésico.'], answer:1 },
+  { id:9, group:'Uso Racional de Medicamentos (URM)', q:'O descarte de medicamentos no lixo comum, pia ou vaso sanitário é considerado incorreto porque:', options:['Aumenta o custo para o sistema de saúde.','Causa intoxicação e contamina o solo e a água.','É ilegal e gera multa.','Necessita de uma receita especial para descarte.'], answer:1 },
+  { id:10, group:'Uso Racional de Medicamentos (URM)', q:'O uso irracional de medicamentos para resolver problemas sociais ou existenciais que antes não eram considerados médicos é chamado de:', options:['Polifarmácia.','Interação Medicamentosa.','Medicalização da Vida.','Não Adesão.'], answer:2 },
+
+  { id:11, group:'Antibióticos e Resistência', q:'Qual é a função principal de um antibiótico?', options:['Combater infecções causadas por vírus ou fungos.','Atuar exclusivamente contra bactérias, eliminando-as ou inibindo seu crescimento.','Inibir a ação do sistema imunológico.','Curar qualquer tipo de dor e inflamação.'], answer:1 },
+  { id:12, group:'Antibióticos e Resistência', q:'Um antibiótico classificado como Bactericida tem qual mecanismo de ação?', options:['Apenas inibe o crescimento da bactéria (Bacteriostático).','Mata a bactéria.','Depende totalmente do sistema imunológico para ter efeito.','Tem como principal alvo o DNA do hospedeiro.'], answer:1 },
+  { id:13, group:'Antibióticos e Resistência', q:'Qual o nome do fungo descoberto por Alexander Fleming que levou à descoberta da penicilina?', options:['Saccharomyces cerevisiae','Candida albicans','Penicillium notatum','Aspergillus fumigatus'], answer:2 },
+  { id:14, group:'Antibióticos e Resistência', q:'Qual dos fatores NÃO contribui para o surgimento de superbactérias?', options:['Uso excessivo e inadequado de antibióticos em humanos.','Mutações no DNA bacteriano.','Fortalecimento do saneamento básico e higiene.','Troca de material genético entre bactérias (conjugação, transdução).'], answer:2 },
+  { id:15, group:'Antibióticos e Resistência', q:'Qual é um dos principais mecanismos que as bactérias utilizam para desenvolver resistência aos antibióticos?', options:['Alteração do citoplasma.','Produção de enzimas que destroem ou inativam o antibiótico (Ex: Betalactamases).','Aumento da permeabilidade da parede celular.','Multiplicação do DNA bacteriano na presença do antibiótico.'], answer:1 },
+
+  { id:16, group:'Farmacologia do Sistema Nervoso', q:'O Sistema Nervoso Somático é responsável por controlar primariamente qual tipo de músculo?', options:['Músculo liso','Músculo cardíaco','Músculo esquelético','Músculo digestivo'], answer:2 },
+  { id:17, group:'Farmacologia do Sistema Nervoso', q:'No Sistema Nervoso Simpático (Adrenérgico), os neurotransmissores principais são:', options:['Acetilcolina e Serotonina.','Glicina e GABA.','Noradrenalina e Adrenalina.','Dopamina e Glutamato.'], answer:2 },
+  { id:18, group:'Farmacologia do Sistema Nervoso', q:'Qual a função primária do Sistema Nervoso Parassimpático (Colinérgico)?', options:['Promover a resposta de \"descansar e digerir\" (repouso).','Preparar o corpo para a resposta de \"luta ou fuga\".','Controlar o músculo esquelético de forma voluntária.','Bloquear completamente a ação da Acetilcolina.'], answer:0 },
+  { id:19, group:'Farmacologia do Sistema Nervoso', q:'Fármacos com Ação Indireta no Sistema Simpático (Simpaticomiméticos) atuam de que forma?', options:['Ligando-se diretamente aos receptores alfa e beta.','Impedindo a liberação de catecolaminas.','Liberando catecolaminas armazenadas ou inibindo a captação do neurotransmissor.','Bloqueando permanentemente os receptores Nicotínicos.'], answer:2 },
+  { id:20, group:'Farmacologia do Sistema Nervoso', q:'Qual é o risco principal associado aos medicamentos de controle especial regulados pela Portaria nº 344/1998 da ANVISA?', options:['Irritação gástrica.','Capacidade de promover dependência física ou psíquica.','Efeito broncodilatador exagerado.','Reações alérgicas leves.'], answer:1 },
+
+  { id:21, group:'Dor e Anti-inflamatórios', q:'Qual dos seguintes sinais NÃO é considerado um sinal cardinal clássico do processo inflamatório?', options:['Febre','Dor','Rubor (vermelhidão)','Edema (inchaço)'], answer:0 },
+  { id:22, group:'Dor e Anti-inflamatórios', q:'Qual isoforma da enzima COX é produzida em resposta a estímulos inflamatórios e é alvo principal dos AINEs?', options:['COX-1 (Constitutiva)','COX-2 (Induzível)','COX-3','COX-0'], answer:1 },
+  { id:23, group:'Dor e Anti-inflamatórios', q:'A inibição de qual isoforma da COX por AINEs não seletivos pode causar úlcera e sangramento gástrico?', options:['COX-1','COX-2','COX-3','A inibição não causa problemas gástricos.'], answer:0 },
+  { id:24, group:'Dor e Anti-inflamatórios', q:'Os Corticosteroides inibem qual enzima, atuando mais alto na cascata inflamatória?', options:['Ciclooxigenase (COX)','Fosfolipase A2','Lipoxigenase','Óxido Nítrico Sintase'], answer:1 },
+  { id:25, group:'Dor e Anti-inflamatórios', q:'Fármacos como Morfina, Codeína e Fentanil pertencem à classe dos:', options:['AINEs Não Seletivos','Corticosteroides','Anestésicos Intravenosos','Opioides'], answer:3 }
+];
+
+let examStarted = false;
+let showGabarito = false;
+
+const sectionsList = document.getElementById('sectionsList');
+const contentArea = document.getElementById('contentArea');
+const examArea = document.getElementById('examArea');
+const resultArea = document.getElementById('resultArea');
+const startBtn = document.getElementById('startBtn');
+const corrigirBtn = document.getElementById('corrigirBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+function renderNav(){
+  const groups = [...new Set(PROVA.map(p=>p.group))];
+  groups.forEach(g=>{
+    const btn = document.createElement('button');
+    btn.textContent = g;
+    btn.onclick = ()=> { location.hash = '#provaCard'; document.getElementById('provaCard').scrollIntoView({behavior:'smooth'}); }
+    sectionsList.appendChild(btn);
+  });
+}
+renderNav();
+
+function startExam(){
+  examStarted = true;
+  showGabarito = false;
+  examArea.innerHTML = '';
+  resultArea.innerHTML = '';
+  // build questions grouped by theme
+  const grouped = PROVA.reduce((acc,q)=> { (acc[q.group] = acc[q.group] || []).push(q); return acc }, {});
+  for(const group in grouped){
+    const groupDiv = document.createElement('div'); groupDiv.style.marginBottom='10px';
+    const title = document.createElement('h4'); title.textContent = group; title.style.margin='8px 0';
+    groupDiv.appendChild(title);
+    grouped[group].forEach(q=>{
+      const qdiv = document.createElement('div'); qdiv.className='question';
+      const qtitle = document.createElement('h4'); qtitle.innerHTML = (q.id)+'. ' + q.q;
+      qdiv.appendChild(qtitle);
+      const opts = document.createElement('div'); opts.className='options';
+      q.options.forEach((opt,i)=>{
+        const id = 'q'+q.id+'_opt'+i;
+        const label = document.createElement('label'); label.className='optionLabel'; label.htmlFor = id;
+        const radio = document.createElement('input'); radio.type='radio'; radio.name = 'q'+q.id; radio.id = id; radio.value = i;
+        const span = document.createElement('span'); span.textContent = String.fromCharCode(65+i) + '. ' + opt;
+        label.appendChild(radio); label.appendChild(span);
+        opts.appendChild(label);
+      });
+      qdiv.appendChild(opts);
+      groupDiv.appendChild(qdiv);
+    });
+    examArea.appendChild(groupDiv);
+  }
+  // focus
+  location.hash = '#provaCard';
+}
+
+function corrigirProva(){
+  if(!examStarted){ alert('Clique em "Iniciar / Mostrar questões" primeiro.'); return; }
+  const answers = {};
+  PROVA.forEach(q => {
+    const sel = document.querySelector('input[name="q'+q.id+'"]:checked');
+    answers[q.id] = sel ? parseInt(sel.value) : null;
+  });
+  // calculate score
+  let correctCount = 0;
+  PROVA.forEach(q=>{
+    const qdiv = document.querySelector('#examArea').querySelector('.question:nth-of-type(' + findQuestionIndex(q.id) + ')');
+    // better to find by scanning
+    const radioSel = document.querySelector('input[name="q'+q.id+'"]:checked');
+    const selected = radioSel ? parseInt(radioSel.value) : null;
+    if(selected === q.answer) correctCount++;
+    // mark visual feedback
+    // find the label elements for this question and mark correct/wrong
+    const labels = Array.from(document.querySelectorAll('input[name="q'+q.id+'"]')).map(inp=>inp.parentElement);
+    labels.forEach((lab, idx)=>{
+      lab.classList.remove('correct','wrong');
+      if(idx === q.answer){
+        lab.classList.add('correct');
+      }
+      if(selected !== null && idx === selected && idx !== q.answer){
+        lab.classList.add('wrong');
+      }
+    });
+  });
+  const total = PROVA.length;
+  const percent = Math.round((correctCount/total) * 100);
+  // show result box
+  resultArea.innerHTML = '';
+  const box = document.createElement('div'); box.className='resultBox';
+  box.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+    <div>
+      <div style="color:var(--muted)">Você acertou</div>
+      <div class="percent">${correctCount}/${total} — ${percent}%</div>
+    </div>
+    <div style="text-align:right">
+      <button class="ghost" onclick="revealGabarito()">Mostrar/ocultar gabarito</button>
+      <button class="ghost" onclick="scrollToTop()">Voltar ao topo</button>
+    </div>
+  </div>`;
+  // gabarito detalhado
+  const gab = document.createElement('div'); gab.className='gabaritoList';
+  gab.innerHTML = '<strong>Gabarito:</strong><br/>';
+  PROVA.forEach(q=>{
+    const correctLetter = String.fromCharCode(65+q.answer);
+    const userSel = (function(){
+      const sel = document.querySelector('input[name="q'+q.id+'"]:checked');
+      return sel ? String.fromCharCode(65 + parseInt(sel.value)) : '—';
+    })();
+    gab.innerHTML += `<div style="margin-top:6px">Q${q.id}. ${correctLetter} &nbsp; (Sua resposta: ${userSel})</div>`;
+  });
+  box.appendChild(gab);
+  resultArea.appendChild(box);
+  // allow printing result
+  scrollToTop();
+}
+
+function findQuestionIndex(qid){
+  // returns 1-based index of question .question elements matching id
+  const qElems = Array.from(document.querySelectorAll('#examArea .question'));
+  for(let i=0;i<qElems.length;i++){
+    const text = qElems[i].textContent || '';
+    if(text.trim().startsWith(String(qid)+'.')) return i+1;
+  }
+  return 1;
+}
+
+function revealGabarito(){
+  showGabarito = !showGabarito;
+  // show green outline around correct options always; wrong remains as user selection
+  PROVA.forEach(q=>{
+    const labels = Array.from(document.querySelectorAll('input[name="q'+q.id+'"]')).map(inp=>inp.parentElement);
+    labels.forEach((lab, idx)=>{
+      lab.classList.remove('correct');
+      if(idx===q.answer) lab.classList.add('correct');
+    });
+  });
+  // scroll to results
+  resultArea.scrollIntoView({behavior:'smooth'});
+}
+
+function resetProva(){
+  if(!confirm('Refazer a prova? Suas respostas atuais serão limpas.')) return;
+  // clear radios
+  PROVA.forEach(q=>{
+    const sel = document.querySelector('input[name="q'+q.id+'"]:checked');
+    if(sel) sel.checked = false;
+    const labels = Array.from(document.querySelectorAll('input[name="q'+q.id+'"]')).map(inp=>inp.parentElement);
+    labels.forEach(l=> l.classList.remove('correct','wrong'));
+  });
+  resultArea.innerHTML = '';
+}
+
+function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* small utilities for search and answers toggle (existing features) */
+function applySearch(){
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  // hide/show summary cards and question blocks
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card=>{
+    const txt = (card.textContent || '').toLowerCase();
+    const show = q === '' ? true : txt.includes(q);
+    card.style.display = show ? 'block' : 'none';
+  });
+}
+function clearSearch(){ document.getElementById('search').value=''; applySearch(); }
+function toggleAnswersDisplay(){
+  showGabarito = !showGabarito;
+  if(showGabarito){
+    // mark correct options
+    PROVA.forEach(q=>{
+      const labels = Array.from(document.querySelectorAll('input[name="q'+q.id+'"]')).map(inp=>inp.parentElement);
+      labels.forEach((lab, idx)=> lab.classList.toggle('correct', idx===q.answer));
+    });
+    document.getElementById('toggleAnswers').textContent = 'Ocultar gabaritos';
+  } else {
+    PROVA.forEach(q=>{
+      const labels = Array.from(document.querySelectorAll('input[name="q'+q.id+'"]')).map(inp=>inp.parentElement);
+      labels.forEach((lab)=> lab.classList.remove('correct'));
+    });
+    document.getElementById('toggleAnswers').textContent = 'Mostrar gabaritos';
+  }
+}
+
+/* init: optionally auto-start exam? we wait for user */
+</script>
+</body>
+</html>
