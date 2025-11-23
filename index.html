@@ -1,83 +1,87 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Biomedicina — Resumos (Hello Kitty Theme)</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Pacifico&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg1: #fff0f6;
-    --bg2: #ffd6e8;
-    --card: #fff;
-    --muted:#6b486b;
-    --accent:#ff69b4;
-    --accent2:#ffb6d5;
-    --shadow: 0 18px 50px rgba(255,105,180,0.10);
-    --hello:#ffedf6;
-    --white:#ffffff;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#3b083b;background:
-    linear-gradient(180deg,var(--bg1),var(--bg2));-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1100px;margin:18px auto;padding:18px}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-  .brand{display:flex;gap:12px;align-items:center}
-  .logo{
-    width:72px;height:72px;border-radius:18px;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--white);
-    font-size:20px;box-shadow:var(--shadow);position:relative;
-  }
-  .logo .ribbon{position:absolute;top:6px;right:8px;font-size:14px}
-  .brand h1{margin:0;font-family:Pacifico,serif;font-size:20px;color:#5b114b}
-  .brand p{margin:0;color:var(--muted);font-size:12px}
-  .nav{display:flex;gap:8px}
-  .tab{padding:10px 14px;border-radius:14px;background:transparent;border:1px solid rgba(91,17,75,0.06);color:var(--muted);font-weight:600;cursor:pointer}
-  .tab.active{background:linear-gradient(90deg, rgba(255,105,180,0.14), rgba(255,182,193,0.06));color:#3b083b;transform:translateY(-3px)}
-  .container{display:grid;grid-template-columns:1fr 360px;gap:18px}
-  @media (max-width:980px){.container{grid-template-columns:1fr}}
-  .panel{background:var(--card);border-radius:16px;padding:18px;border:1px solid rgba(91,17,75,0.04);box-shadow:0 8px 30px rgba(91,17,75,0.04);max-height:80vh;overflow:auto}
-  .hero{display:flex;gap:14px;align-items:center;margin-bottom:12px}
-  .big{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,var(--accent2),#ffe7f4);display:flex;align-items:center;justify-content:center;font-size:30px;color:#5b114b;font-weight:900;box-shadow:0 12px 36px rgba(255,105,180,0.06)}
-  .lead{color:var(--muted);font-size:14px}
-  .hugeTitle{font-family:Pacifico,serif;font-size:32px;color:#d41a6b;margin:0 0 6px 0}
-  .cardTitle{font-weight:800;color:#5b124b;margin:6px 0}
-  .contentText{color:#5f2e4f;line-height:1.6;font-size:15px}
-  .block{background:linear-gradient(90deg,#fff,#fffaf6);padding:12px;border-radius:12px;margin-bottom:12px;border:1px solid rgba(180,80,140,0.04)}
-  .small{font-size:13px;color:var(--muted)}
-  .actionRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .btn{background:linear-gradient(90deg,var(--accent),#ff82b3);padding:10px 14px;border-radius:12px;border:none;color:var(--white);font-weight:800;cursor:pointer;box-shadow:0 10px 26px rgba(255,105,180,0.08)}
-  .btn.ghost{background:transparent;border:1px solid rgba(91,17,75,0.06);color:var(--muted)}
-  .sideCard{padding:14px;border-radius:14px;background:linear-gradient(180deg,#fff,#fff7fb);border:1px solid rgba(91,17,75,0.05)}
-  .footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
-  .cuteBox{background:linear-gradient(180deg,#fff7fb,#fff0f6);padding:12px;border-radius:12px;border:1px dashed rgba(255,105,180,0.25);text-align:center}
-  .loveBtn{background:transparent;color:#fff;padding:14px 18px;border-radius:14px;font-family:Pacifico,serif;font-size:22px;border:3px solid rgba(255,255,255,0.2);cursor:pointer;box-shadow:0 8px 30px rgba(255,105,180,0.12)}
-  .modal-back{position:fixed;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(255,105,180,0.05));display:none;align-items:center;justify-content:center;z-index:9999}
-  .modal{width:92%;max-width:520px;background:linear-gradient(180deg,#fff0f6,#ffe3f0);padding:28px;border-radius:18px;border:6px solid #fff;box-shadow:0 30px 80px rgba(203,41,125,0.18);text-align:center;transform:translateY(20px);opacity:0}
-  .modal h2{font-family:Pacifico,serif;color:#d81a73;font-size:48px;margin:0;letter-spacing:2px;text-shadow:0 6px 20px rgba(216,26,115,0.12)}
-  .modal p{color:#6b2650;margin-top:10px}
-  .modal.show{transform:translateY(0);opacity:1;transition:all 420ms cubic-bezier(.2,.9,.2,1)}
-  .sparkle{position:absolute;right:18px;top:8px;font-size:22px}
-  .zipModal{display:none;background:linear-gradient(180deg,#fff,#fff8fb);padding:16px;border-radius:12px;border:1px solid rgba(91,17,75,0.06);margin-top:10px}
-  .kittyNote{font-size:13px;color:#7a3f6a}
-  input[type="radio"]{accent-color:#ff5fa8}
-  hr{border:none;border-top:1px dashed rgba(200,100,150,0.12);margin:12px 0}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biomedicina — Resumos & Provas (Hello Kitty Theme)</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Pacifico&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #fff0f6;
+      --card: #fff;
+      --muted: #6b5b6b;
+      --pink: #ff6fb5;
+      --pink-2: #ffd3e8;
+      --accent: #ff84c9;
+      --accent-dark: #c53a7a;
+      --hello: #ffd7ec;
+      --shadow: 0 10px 30px rgba(197,58,122,0.12);
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff0f6 0%, #ffeef7 40%), radial-gradient(600px 300px at 10% 10%, rgba(255,111,181,0.08), transparent); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:#3d2540}
+    .wrap{max-width:1100px;margin:18px auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-family:Pacifico;font-size:22px;box-shadow:var(--shadow)}
+    .brand h1{margin:0;font-family:'Playfair Display',serif;font-size:20px;color:var(--accent-dark)}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    .nav{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(197,58,122,0.08);color:var(--accent-dark);font-weight:700;cursor:pointer}
+    .tab.active{background:linear-gradient(90deg,var(--pink-2),#fff);box-shadow:0 8px 30px rgba(197,58,122,0.06);transform:translateY(-3px)}
+    .container{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    @media (max-width:980px){.container{grid-template-columns:1fr}}
+    .panel{background:var(--card);border-radius:14px;padding:16px;border:1px solid rgba(197,58,122,0.06);box-shadow:var(--shadow);max-height:78vh;overflow:auto}
+    .hero{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+    .big{width:72px;height:72px;border-radius:14px;background:linear-gradient(135deg,#fff,#ffd7ec);display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--accent-dark);font-weight:900;box-shadow:0 12px 40px rgba(255,111,181,0.06)}
+    .lead{color:var(--muted);font-size:14px}
+    .hugeTitle{font-family:'Playfair Display',serif;font-size:34px;color:var(--accent-dark);margin:0 0 6px 0}
+    .sectionTitle{font-family:'Playfair Display',serif;font-size:18px;color:var(--accent);margin:6px 0 10px 0}
+    .cardTitle{font-weight:800;color:#3d2540;margin:6px 0;font-size:15px}
+    .contentText{color:#6b5b6b;line-height:1.6;font-size:15px}
+    .block{background:linear-gradient(180deg, #fff, #fff);padding:14px;border-radius:12px;margin-bottom:12px;border:1px dashed rgba(255,111,181,0.06)}
+    .small{font-size:13px;color:var(--muted)}
+    .actionRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .btn{background:linear-gradient(90deg,var(--pink),var(--accent));padding:10px 14px;border-radius:12px;border:none;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 12px 30px rgba(197,58,122,0.08)}
+    .btn.ghost{background:transparent;border:1px solid rgba(197,58,122,0.08);color:var(--accent-dark)}
+    .sideCard{padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff);border:1px solid rgba(197,58,122,0.06)}
+    .footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
+    /* Quiz styles */
+    .question{margin-bottom:12px;padding:12px;border-radius:10px;border:1px solid rgba(197,58,122,0.05);background:linear-gradient(180deg,#fff,#fff5fb)}
+    .qTitle{font-weight:800;color:var(--accent-dark);margin-bottom:6px}
+    label.option{display:block;padding:8px;border-radius:8px;margin-bottom:6px;cursor:pointer;border:1px solid rgba(197,58,122,0.04)}
+    label.option input{margin-right:8px}
+    /* I Love You modal */
+    .loveBtn{background:linear-gradient(90deg,#ff9fc0,#ff6fb5);color:#fff;padding:12px 18px;border-radius:20px;font-weight:900;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(255,111,181,0.12)}
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:9999;opacity:0;pointer-events:none;transition:all .25s ease}
+    .modal.show{opacity:1;pointer-events:auto}
+    .cardLove{width:90%;max-width:540px;border-radius:20px;padding:28px;background:linear-gradient(135deg,#fff7fb,#ffdff0);text-align:center;box-shadow:0 30px 80px rgba(197,58,122,0.18);border:6px solid rgba(255,255,255,0.6)}
+    .loveTitle{font-family:Pacifico;font-size:44px;color:var(--accent-dark);margin:6px 0}
+    .loveText{color:#633b55;font-weight:700;margin-top:8px}
+    .helloKitty{display:block;margin:10px auto 0;width:120px;height:120px;background-image:url('https://i.imgur.com/7vQX3lq.png');background-size:contain;background-repeat:no-repeat}
+    /* playful icons */
+    .cuteBadge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#fff,#ffe3f0);border:1px solid rgba(197,58,122,0.06);font-weight:800;color:var(--accent-dark)}
+    /* responsive */
+    @media (max-width:600px){
+      .hugeTitle{font-size:28px}
+      .loveTitle{font-size:36px}
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo">
-          <div>🐱</div>
-          <div class="ribbon">🎀</div>
-        </div>
+        <div class="logo">HK</div>
         <div>
-          <h1>Resumos • Biomedicina</h1>
-          <p class="small">Anatomia · Patologia · Química — tema Hello Kitty</p>
+          <h1 id="mainTitle">Resumos • Biomedicina</h1>
+          <p class="small">Anatomia · Patologia · Química — pronto para celular</p>
         </div>
       </div>
+
       <nav class="nav" aria-label="Navegação principal">
         <button class="tab active" id="tab-anat" onclick="showSection('anatomia')">Anatomia</button>
         <button class="tab" id="tab-pat" onclick="showSection('patologia')">Patologia</button>
@@ -88,41 +92,52 @@
 
     <div class="container">
       <main class="panel" id="mainPanel">
+
         <!-- ANATOMIA -->
         <section id="anatomia" class="contentSection">
           <div class="hero">
-            <div class="big">🫁</div>
+            <div class="big">🫀</div>
             <div>
               <div class="hugeTitle">ANATOMIA</div>
-              <div class="lead">Resumos organizados por aula — títulos grandes e práticos para revisão rápida.</div>
+              <div class="lead">Resumos por aula — título grande e estilizado para revisão rápida (Hello Kitty theme).</div>
             </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Aula 01 — Conceitos Gerais da Anatomia Humana</div>
             <div class="contentText">
-              Estrutura hierárquica do corpo (células → tecidos → órgãos → sistemas). Principais sistemas: esquelético, muscular, cardiovascular, nervoso, respiratório.
-              <br><br>
-              Planos anatômicos: sagital, frontal (coronal) e transversal; eixos (longitudinal, anteroposterior, transversal) e sua relação com movimentos.
-              <br><br>
-              Terminologia direcional: anterior/posterior, superior/inferior, medial/lateral, proximal/distal, superficial/profundo. Ética na anatomia (respeito, consentimento, confidencialidade).
+              Estrutura hierárquica do corpo (células → tecidos → órgãos → sistemas). Planos anatômicos: sagital, frontal e transversal; eixos e terminologia direcional. Importância da ética na anatomia: respeito, consentimento, confidencialidade e normas.
             </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Aula 02 — Sistema Músculo-Esquelético</div>
-            <div class="contentText">Funções do esqueleto: sustentação, proteção, movimento, hematopoiese e armazenamento mineral. Estrutura óssea; classificação dos ossos; coluna e sistema de alavancas.</div>
+            <div class="contentText">
+              Funções do esqueleto: sustentação, proteção, movimento, hematopoiese e armazenamento mineral. Estrutura óssea e classificação dos ossos. Coluna vertebral: regiões e curvaturas.
+            </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Aula 03 — Junturas e Sistema Muscular</div>
-            <div class="contentText">Classificação das articulações, movimentos, tipos de músculos e organização estrutural (sarcômero, tendões, origem/inserção).</div>
+            <div class="contentText">
+              Tipos de articulações: fibrosas, cartilaginosas, sinoviais. Junturas sinoviais: cápsula, líquido sinovial, ligamentos, meniscos. Movimentos articulares. Sistema muscular: tipos, sarcômero, tendões e papéis funcionais.
+            </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Aula 04 — Sistema Circulatório</div>
-            <div class="contentText">Coração, válvulas, circulação pulmonar e sistêmica, sistema de condução e vasos sanguíneos. Sistema linfático e órgãos hemopoiéticos.</div>
+            <div class="contentText">
+              Componentes: coração, câmaras, válvulas. Circulação pulmonar e sistêmica. Sistema de condução cardíaca: nó sinoatrial, nó AV, feixe de His. Vasos e sistema linfático.
+            </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Aula 05 — Sistema Respiratório</div>
-            <div class="contentText">Trocas gasosas em alvéolos; estruturas (nariz, faringe, laringe, traqueia, brônquios); pleura e defesas pulmonares (muco, cílios).</div>
+            <div class="contentText">
+              Trocas gasosas, árvore brônquica, alvéolos, pleura, mediastino e mecanismos de defesa: muco, cílios e reflexos.
+            </div>
           </div>
+
         </section>
 
         <!-- PATOLOGIA -->
@@ -131,20 +146,23 @@
             <div class="big">🩺</div>
             <div>
               <div class="hugeTitle">PATOLOGIA</div>
-              <div class="lead">Conceitos-chave: lesão celular, adaptações, necrose e distúrbios circulatórios.</div>
+              <div class="lead">Conceitos-chave: lesão celular, necrose, distúrbios circulatórios e pigmentos.</div>
             </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Introdução & Mecanismos de Lesão Celular</div>
-            <div class="contentText">Patologia estuda etiologia, patogenia e alterações morfológicas. Adaptações: hipertrofia, hiperplasia, atrofia, metaplasia. Morte celular: apoptose e necrose.</div>
+            <div class="contentText">Patologia: estudo de etiologia e patogenia. Lesão reversível vs irreversível; adaptações celulares; apoptose vs necrose.</div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Distúrbios da Circulação</div>
-            <div class="contentText">Hemostasia, trombose, embolia, isquemia/infarto, edema e aterosclerose.</div>
+            <div class="contentText">Hemostasia, trombose, embolia, isquemia, infarto, edema e aterosclerose — conceitos e consequências clínicas.</div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Pigmentos e Calcificações</div>
-            <div class="contentText">Pigmentos endógenos (melanina, bilirrubina), exógenos e tipos de calcificações (distrófica vs metastática).</div>
+            <div class="contentText">Pigmentos endógenos (melanina, bilirrubina) e exógenos; calcificação distrófica vs metastática — definições e exemplos clínicos.</div>
           </div>
         </section>
 
@@ -154,20 +172,23 @@
             <div class="big">⚗️</div>
             <div>
               <div class="hugeTitle">QUÍMICA</div>
-              <div class="lead">Bases essenciais: átomos, modelos atômicos e ligações químicas.</div>
+              <div class="lead">Átomos, modelos atômicos e ligações químicas — conceitos essenciais para biomedicina.</div>
             </div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Introdução à Química</div>
-            <div class="contentText">Química estuda a matéria e suas transformações. Tudo composto por átomos (prótons, nêutrons, elétrons).</div>
+            <div class="contentText">Matéria, átomos (prótons, nêutrons, elétrons) e a ideia de corpo/objeto.</div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Modelos Atômicos</div>
-            <div class="contentText">Dalton, Thomson, Rutherford, Bohr e Modelo Quântico (Schrödinger).</div>
+            <div class="contentText">Dalton, Thomson, Rutherford, Bohr e Modelo Quântico — evolução e implicações.</div>
           </div>
+
           <div class="block">
             <div class="cardTitle">Ligações Químicas</div>
-            <div class="contentText">Teoria do octeto; tipos: iônica (NaCl), covalente (glicose) e metálica.</div>
+            <div class="contentText">Teoria do octeto; ligações iônica, covalente e metálica — formação e propriedades típicas.</div>
           </div>
         </section>
 
@@ -177,18 +198,18 @@
             <div class="big">📝</div>
             <div>
               <div class="hugeTitle">PROVAS</div>
-              <div class="lead">Provas rápidas por matéria — corrijo, mostro gabarito e %.</div>
+              <div class="lead">Provas rápidas por matéria — corrijo, mostro gabarito e porcentagem.</div>
             </div>
           </div>
 
           <div class="block">
             <div class="cardTitle">Provas disponíveis</div>
             <div class="contentText">
-              Clique para iniciar a prova de cada matéria. <br><br>
-              <div class="actionRow">
-                <button class="btn" onclick="startSubjectExam('anatomia')">Iniciar • Anatomia</button>
-                <button class="btn" onclick="startSubjectExam('patologia')">Iniciar • Patologia</button>
-                <button class="btn" onclick="startSubjectExam('quimica')">Iniciar • Química</button>
+              Clique para iniciar a prova de cada matéria. Todas as **20 questões** aparecem de uma vez por prova.
+              <div class="actionRow" style="margin-top:8px">
+                <button class="btn" onclick="startSubjectExam('anatomia')">Iniciar • Anatomia (20)</button>
+                <button class="btn" onclick="startSubjectExam('patologia')">Iniciar • Patologia (20)</button>
+                <button class="btn" onclick="startSubjectExam('quimica')">Iniciar • Química (20)</button>
               </div>
             </div>
           </div>
@@ -199,258 +220,894 @@
 
       </main>
 
-      <!-- right column -->
       <aside class="sideCard">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div>
             <div class="sectionTitle">Dicas rápidas</div>
-            <div class="small">Estude 25–30 min por bloco; revise com perguntas; use a aba Provas para testar.</div>
+            <div class="small">Estude 25–30 min por bloco; revise com perguntas; utilize a aba Provas para testar seu conhecimento.</div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:20px;color:#ff6fb3">🎀</div>
+            <div style="font-size:20px;color:var(--accent-dark)">♥</div>
           </div>
         </div>
 
-        <div style="margin-top:12px" class="cuteBox">
-          <div style="font-weight:800;margin-bottom:6px">Sugestão para impressionar</div>
-          <div class="kittyNote">
-            Adicione uma mensagem personalizada no topo (ex.: "Para <strong>nome</strong> — estuda comigo? 🎀") e ative uma musiquinha instrumental suave quando ela abrir o site.
-            <br><br>
-            Quer que eu gere o ZIP com o site pronto para você enviar? Clique no botão abaixo.
-          </div>
+        <div style="margin-top:12px">
+          <div class="small" style="font-weight:800;margin-bottom:6px">Sugestão para impressionar</div>
+          <div class="small">Coloque uma mensagem personalizada no topo (ex.: "Para [nome] — estuda comigo? ♥") e ative uma musiquinha suave. Quer que eu adicione?</div>
 
-          <div class="actionRow" style="margin-top:12px;justify-content:center">
+          <div class="actionRow" style="margin-top:8px">
             <button class="btn ghost" onclick="togglePersonalMessage()">Personalizar topo</button>
             <button class="btn ghost" onclick="toggleMusic()">Musiquinha</button>
-            <button class="btn" id="zipBtn" onclick="requestZip()">Gerar ZIP</button>
-          </div>
-
-          <div id="zipBox" class="zipModal" aria-hidden="true">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <div style="font-weight:700">Gerar ZIP</div>
-                <div class="small">Eu posso preparar o ZIP com todos os arquivos (index.html + estilos). Clique para ver a surpresa.</div>
-              </div>
-              <div>
-                <button class="btn" onclick="showLove()">Clique aqui</button>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top:12px">
-            <button class="loveBtn" onclick="showLove()">Clique aqui — demonstração</button>
           </div>
         </div>
 
-        <div style="margin-top:12px" class="small">Se quiser que eu já gere o ZIP aqui e te entregue o arquivo, me avisa que eu gero e te dou o link para download.</div>
+        <div style="margin-top:12px" class="small">
+          Quer que eu gere o ZIP com os arquivos prontos para você enviar? Clique abaixo.
+          <div class="actionRow" style="margin-top:8px">
+            <button class="btn ghost" onclick="alert('Posso gerar o ZIP e te orientar a publicar no GitHub Pages — quer que eu gere e te mande os passos?')">Gerar ZIP / Publicar</button>
+            <button class="loveBtn" onclick="openLove()">Clique aqui ❤️</button>
+          </div>
+        </div>
       </aside>
     </div>
 
-    <div class="footer">Feito com carinho — quer que eu adicione uma mensagem personalizada? <span style="color:#ff6fb3;font-weight:800">💗</span></div>
+    <div class="footer">Feito com carinho — quer que eu adicione uma mensagem personalizada para ela? <span style="color:#ff6fb5;font-weight:800">💗</span></div>
   </div>
 
-  <!-- EU TE AMO modal -->
-  <div id="modalBack" class="modal-back" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" id="loveModal">
-      <div class="sparkle">✨</div>
-      <h2 id="loveText">EU TE AMO</h2>
-      <p id="loveSub">Para você, com carinho — toque e segure para ver o brilho ✨</p>
-      <div style="margin-top:14px">
-        <button class="btn ghost" onclick="closeLove()">Fechar</button>
+  <!-- LOVE Modal -->
+  <div id="loveModal" class="modal" role="dialog" aria-hidden="true">
+    <div class="cardLove" role="document">
+      <div class="helloKitty" aria-hidden="true"></div>
+      <div class="loveTitle">EU TE AMO</div>
+      <div class="loveText">Para você, com todo meu carinho — estude com amor 💕</div>
+      <div style="margin-top:18px">
+        <button class="btn" onclick="closeLove()">Fechar</button>
       </div>
     </div>
   </div>
 
-<script>
-/* ---------- basic navigation ---------- */
-function showSection(id){
-  document.querySelectorAll('.contentSection').forEach(s=>s.style.display='none');
-  document.getElementById(id).style.display='';
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  const map = {anatomia:'tab-anat',patologia:'tab-pat',quimica:'tab-qui',provas:'tab-prova'};
-  const btn = document.getElementById(map[id]);
-  if(btn) btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+  <script>
+    /* ---------- Navigation ---------- */
+    function showSection(id){
+      document.querySelectorAll('.contentSection').forEach(s => s.style.display = 'none');
+      document.getElementById(id).style.display = '';
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      const map = {anatomia:'tab-anat', patologia:'tab-pat', quimica:'tab-qui', provas:'tab-prova'};
+      const btn = document.getElementById(map[id]);
+      if(btn) btn.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
 
-/* ---------- BANK: 20 perguntas por matéria ---------- */
-const BANK = {
-  anatomia: [
-    {id:1,q:'Qual a unidade estrutural fundamental do corpo?', opts:['Tecido','Célula','Órgão','Sistema'], a:1},
-    {id:2,q:'Qual plano divide o corpo em direita e esquerda?', opts:['Coronal','Transversal','Sagital','Oblíquo'], a:2},
-    {id:3,q:'Onde ocorre hematopoiese na vida adulta?', opts:['Fígado','Medula óssea vermelha','Baço','Pulmões'], a:1},
-    {id:4,q:'Qual eixo está associado ao movimento de rotação?', opts:['Longitudinal','Anteroposterior','Transversal','Sagital'], a:0},
-    {id:5,q:'O que significa "proximal"?', opts:['Mais próximo do tronco','Mais distante do tronco','Mais superficial','Mais profundo'], a:0},
-    {id:6,q:'Qual tipo de osso é o fêmur?', opts:['Plano','Curto','Longo','Irregular'], a:2},
-    {id:7,q:'Qual camada óssea é esponjosa?', opts:['Periósteo','Osso compacto','Osso esponjoso','Endósteo'], a:2},
-    {id:8,q:'A coluna lombar normalmente apresenta qual curvatura?', opts:['Cifose','Lordose','Escoliose','Retidão'], a:1},
-    {id:9,q:'Que tipo de articulação tem movimento de dobradiça?', opts:['Sela','Gínglimo (dobradiça)','Esferoide','Plana'], a:1},
-    {id:10,q:'Qual é a função do periósteo?', opts:['Produzir bile','Revestir o osso e nutrir','Filtrar sangue','Produzir ar'], a:1},
-    {id:11,q:'Qual estrutura contém as pregas vocais?', opts:['Faringe','Laringe','Traqueia','Bronquíolo'], a:1},
-    {id:12,q:'Onde fica a carina?', opts:['Entre os brônquios principais','No coração','No fígado','No rim'], a:0},
-    {id:13,q:'Qual membrana reveste o pulmão?', opts:['Pericárdio','Pleura visceral','Peritônio','Meninge'], a:1},
-    {id:14,q:'Qual vaso leva sangue do coração para os pulmões?', opts:['Veia cava','Veia pulmonar','Artéria pulmonar','Aorta'], a:2},
-    {id:15,q:'Qual cavidade protege o encéfalo?', opts:['Cavidade pleural','Caixa torácica','Cavidade craniana','Abdome'], a:2},
-    {id:16,q:'Qual é o papel principal do sistema linfático?', opts:['Produzir hormônios','Transportar oxigénio','Drenagem de líquido e defesa imunológica','Controlar movimentos'], a:2},
-    {id:17,q:'O que é uma fáscia?', opts:['Um osso pequeno','Tecido conjuntivo que envolve músculos','Uma glândula','Um nervo'], a:1},
-    {id:18,q:'Qual é o músculo principal da respiração?', opts:['Diafragma','Bíceps','Esternocleidomastoideo','Trapézio'], a:0},
-    {id:19,q:'Qual estrutura conecta músculo ao osso?', opts:['Ligamento','Tendão','Menisco','Cartilagem'], a:1},
-    {id:20,q:'Qual termo indica “mais superficial”?', opts:['Profundo','Superficial','Proximal','Distal'], a:1}
-  ],
+    /* ---------- LOVE modal ---------- */
+    function openLove(){
+      document.getElementById('loveModal').classList.add('show');
+    }
+    function closeLove(){
+      document.getElementById('loveModal').classList.remove('show');
+    }
 
-  patologia: [
-    {id:1,q:'O que é apoptose?', opts:['Morte celular programada','Inflamação aguda','Calcificação','Hipertrofia'], a:0},
-    {id:2,q:'Qual tipo de necrose é típica de abscessos?', opts:['Coagulação','Liquefativa','Enzimática','Gaseosa'], a:1},
-    {id:3,q:'O que é hipertrofia?', opts:['Aumento do número de células','Aumento do volume celular','Morte celular','Substituição celular'], a:1},
-    {id:4,q:'Trombose é:', opts:['Formação de coágulo no vaso','Perda de sangue externa','Formação de pus','Calcificação tecidual'], a:0},
-    {id:5,q:'Embolia causa:', opts:['Aumento da pressão arterial','Obstrução de vaso por êmbolo','Regeneração tecidual','Hipertrofia'], a:1},
-    {id:6,q:'O que é isquemia?', opts:['Aumento do fluxo sanguíneo','Redução do fluxo sanguíneo','Sangramento externo','Inflamação'], a:1},
-    {id:7,q:'Qual é uma causa comum de infarto?', opts:['Aterosclerose com trombose','Ingestão de água','Exposição ao frio','Hipertrofia muscular'], a:0},
-    {id:8,q:'O que é edema?', opts:['Perda de tecido','Acúmulo de líquido intersticial','Calcificação','Trombose'], a:1},
-    {id:9,q:'Bilirrubina elevada causa:', opts:['Cianose','Icterícia','Edema','Alopecia'], a:1},
-    {id:10,q:'Calcificação distrófica ocorre em:', opts:['Tecidos necrosados','Tecidos saudáveis por hipercalcemia','No sangue','No músculo apenas'], a:0},
-    {id:11,q:'Lipofuscina é associada a:', opts:['Envelhecimento celular','Infecção bacteriana','Hemorragia','Isquemia aguda'], a:0},
-    {id:12,q:'Qual processo forma cicatriz?', opts:['Regeneração completa','Fibrose (deposito de colágeno)','Apoptose','Lipogênese'], a:1},
-    {id:13,q:'Qual é função da hemostasia?', opts:['Dilatar vasos','Manter sangue fluido e controlar sangramento','Produzir imunoglobulinas','Produzir urina'], a:1},
-    {id:14,q:'Gangrena seca é consequência de:', opts:['Infecção bacteriana gasosa','Isquemia prolongada e murchamento tecidual','Hipertrofia','Inflamação aguda'], a:1},
-    {id:15,q:'Qual pigmento é derivado da hemoglobina?', opts:['Melanina','Bilirrubina','Lipofuscina','Carotenoide'], a:1},
-    {id:16,q:'Qual situação pode levar a trombose venosa profunda?', opts:['Imobilidade prolongada','Exercício intenso','Baixa ingestão de água','Dieta rica em cálcio'], a:0},
-    {id:17,q:'Qual termo descreve substituição de um tipo celular por outro?', opts:['Hiperplasia','Metaplasia','Atrofia','Hipertrofia'], a:1},
-    {id:18,q:'Qual tipo de necrose é comum após infarto do miocárdio?', opts:['Liquefativa','Coagulação','Caseosa','Gaseosa'], a:1},
-    {id:19,q:'Qual das opções é sinal de inflamação?', opts:['Edema, rubor, dor, calor','Arritmia','Hipertrofia óssea','Metaplasia'], a:0},
-    {id:20,q:'Aterosclerose envolve:', opts:['Deposição de placa na parede arterial','Excesso de água no tecido','Trombose imediata sem placa','Destruição de fibras nervosas'], a:0}
-  ],
+    /* ---------- personalization & music ---------- */
+    let personalized=false;
+    function togglePersonalMessage(){
+      if(!personalized){
+        const nome = prompt('Qual o nome dela? (aparecerá no topo exatamente como digitado)');
+        if(!nome) return;
+        document.getElementById('mainTitle').textContent = `Resumos • Biomedicina — Para ${nome} ♥`;
+        personalized=true;
+      } else {
+        document.getElementById('mainTitle').textContent = 'Resumos • Biomedicina';
+        personalized=false;
+      }
+    }
 
-  quimica: [
-    {id:1,q:'O que é um átomo?', opts:['Molecula grande','Unidade básica da matéria','Um tecido','Um elemento químico composto'], a:1},
-    {id:2,q:'Qual modelo descreve orbitais probabilísticos?', opts:['Dalton','Bohr','Rutherford','Quântico (Schrödinger)'], a:3},
-    {id:3,q:'A teoria do octeto diz que átomos...', opts:['Buscam 8 prótons','Buscam 8 elétrons na valência','Perdem massa','Se tornam gases nobres'], a:1},
-    {id:4,q:'Ligação iônica envolve:', opts:['Compartilhamento','Transferência de elétrons','Deslocalização','Força intermolecular'], a:1},
-    {id:5,q:'Exemplo clássico de composto iônico:', opts:['H2O','NaCl','O2','CH4'], a:1},
-    {id:6,q:'Ligação covalente é caracterizada por:', opts:['Transferência de elétrons','Compartilhamento de elétrons','Livre movimento de elétrons','Formação de íons apenas'], a:1},
-    {id:7,q:'Qual ligação explica condutividade nos metais?', opts:['Iônica','Covalente','Metálica','Hidrofóbica'], a:2},
-    {id:8,q:'Qual partícula tem carga negativa?', opts:['Próton','Nêutron','Elétron','Átomo neutro'], a:2},
-    {id:9,q:'O que é massa atômica aproximada do carbono (C)?', opts:['1','12','6','16'], a:1},
-    {id:10,q:'O número atômico indica:', opts:['Nº de nêutrons','Nº de prótons','Massa total','Nº de moléculas'], a:1},
-    {id:11,q:'Ligação polar ocorre quando:', opts:['Átomos têm eletronegatividades iguais','Diferença moderada de eletronegatividade','Semáforo','Íons se formam sempre'], a:1},
-    {id:12,q:'pH < 7 indica solução:', opts:['Básica','Ácida','Neutra','Buffer'], a:1},
-    {id:13,q:'Água é um exemplo de molécula:', opts:['Apolar','Polar','Iônica','Metálica'], a:1},
-    {id:14,q:'Qual processo quebra ligações químicas com ganho de elétrons?', opts:['Oxidação','Redução','Ionização','Conjugação'], a:1},
-    {id:15,q:'Qual é a unidade da concentração molar (M)?', opts:['mol/L','g/L','mol/kg','g/mol'], a:0},
-    {id:16,q:'Qual é o produto da reação ácido + base (neutralização)?', opts:['Sal + água','Gás + água','Ácido forte','Oxigênio'], a:0},
-    {id:17,q:'Isótopos diferem em:', opts:['Número de prótons','Número de nêutrons','Elétrons','Elemento químico'], a:1},
-    {id:18,q:'O que é ligação de hidrogênio?', opts:['Ligação covalente forte','Interação fraca entre H e átomo eletronegativo','Tipo de ligação iônica','Ligação metálica'], a:1},
-    {id:19,q:'Qual é a fórmula química da glicose?', opts:['C6H12O6','C12H22O11','CH4','H2O'], a:0},
-    {id:20,q:'Qual propriedade explica solubilidade em água?', opts:['Polaridade da molécula','Massa molar apenas','Número de oxigênios','Estrutura cristalina'], a:0}
-  ]
-};
+    let musicOn=false;
+    let audioEl=null;
+    function toggleMusic(){
+      if(!musicOn){
+        audioEl = new Audio();
+        // placeholder short loop music (if blocked, user can allow)
+        audioEl.src = "data:audio/mpeg;base64,//uQZAAAAAAAAAAAAAAAAAAAAAA==";
+        audioEl.loop=true;
+        audioEl.play().catch(()=>{ alert('Reprodução automática bloqueada — permita som manualmente no navegador.')});
+        musicOn=true;
+        alert('Musiquinha ativada (se o navegador permitir).');
+      } else {
+        if(audioEl){ audioEl.pause(); audioEl=null; }
+        musicOn=false;
+      }
+    }
 
-/* ---------- exam logic ---------- */
-let currentQuestions=[], examStarted=false;
-function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]} return b; }
-function startSubjectExam(subject, shuffleQ=true){
-  const bank = BANK[subject] || [];
-  currentQuestions = shuffleQ ? shuffle(bank) : bank.slice();
-  examStarted=true;
-  renderExam();
-}
-function renderExam(){
-  const area = document.getElementById('examArea'); area.innerHTML='';
-  currentQuestions.forEach((q,idx)=>{
-    const node = document.createElement('div'); node.style.marginBottom='10px';
-    node.innerHTML = `<div style="font-weight:800;color:${'#ff82b3'}">Q${idx+1}. ${q.q}</div>`;
-    const opts = document.createElement('div'); opts.style.marginTop='8px';
-    q.opts.forEach((opt,i)=>{
-      const lab = document.createElement('label'); lab.style.display='block'; lab.style.marginBottom='6px';
-      lab.innerHTML = `<input type="radio" name="ans_${idx}" value="${i}"> <span style="color:#5f2e4f">${String.fromCharCode(65+i)}. ${opt}</span>`;
-      opts.appendChild(lab);
-    });
-    node.appendChild(opts); area.appendChild(node);
-  });
-  area.appendChild(document.createElement('hr'));
-  const btnRow=document.createElement('div'); btnRow.style.marginTop='8px';
-  btnRow.innerHTML = `<button class="btn" onclick="corrigirProva()">Finalizar / Corrigir</button> <button class="btn ghost" onclick="resetProva()">Zerar</button>`;
-  area.appendChild(btnRow); document.getElementById('resultArea').innerHTML='';
-  window.scrollTo({top:document.getElementById('examArea').offsetTop-20,behavior:'smooth'});
-}
-function corrigirProva(){
-  if(!examStarted){ alert('Inicie a prova primeiro.'); return; }
-  let correct=0; const answers=[];
-  currentQuestions.forEach((q,idx)=>{
-    const sel=document.querySelector(`input[name="ans_${idx}"]:checked`);
-    const val=sel?Number(sel.value):null; answers.push(val);
-    if(val===q.a) correct++;
-  });
-  const total=currentQuestions.length; const pct=Math.round((correct/total)*100);
-  const res=document.getElementById('resultArea');
-  res.innerHTML = `<div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff0f6,#fff);color:#5f2e4f;margin-top:10px">
-    <div style="font-weight:900">${correct} / ${total} corretas — <span style="color:#d81a73;font-size:20px">${pct}%</span></div>
-    <div style="margin-top:8px;font-weight:800">Gabarito:</div>
-    </div>`;
-  const box=document.createElement('div'); box.style.marginTop='8px';
-  currentQuestions.forEach((q,idx)=>{
-    const corr=String.fromCharCode(65+q.a); const sua=answers[idx]===null?'—':String.fromCharCode(65+answers[idx]);
-    const row=document.createElement('div'); row.className='small'; row.style.marginTop='6px';
-    row.innerHTML = `Q${idx+1}. ${corr} → Sua: ${sua} — ${q.q}`; box.appendChild(row);
-  });
-  // add action: refazer
-  const action = document.createElement('div'); action.style.marginTop='12px';
-  action.innerHTML = `<div style="margin-top:8px"><button class="btn" onclick="refazerProva()">Refazer (embaralhar)</button> <button class="btn ghost" onclick="resetProva()">Zerar</button></div>`;
-  res.appendChild(box); res.appendChild(action); res.scrollIntoView({behavior:'smooth'});
-}
-function refazerProva(){
-  if(!examStarted) { alert('Inicie a prova primeiro.'); return; }
-  currentQuestions = shuffle(currentQuestions);
-  renderExam();
-}
-function resetProva(){ document.getElementById('examArea').innerHTML=''; document.getElementById('resultArea').innerHTML=''; examStarted=false; }
+    /* ---------- Exam bank (20 extensive questions each) ---------- */
 
-/* personalization & music */
-let personalized=false;
-function togglePersonalMessage(){
-  if(!personalized){
-    const nome = prompt('Qual o nome dela? (aparecerá no topo)');
-    if(!nome) return;
-    const header = document.querySelector('.brand h1');
-    header.textContent = `Resumos • Biomedicina — Para ${nome} 🎀`;
-    personalized=true;
-  } else {
-    const header = document.querySelector('.brand h1');
-    header.textContent = 'Resumos • Biomedicina';
-    personalized=false;
-  }
-}
-let musicOn=false; let audioEl=null;
-function toggleMusic(){
-  if(!musicOn){
-    audioEl = new Audio();
-    audioEl.src = "data:audio/mpeg;base64,//uQZAAAAAAAAAAAAAAAAAAAAAA==";
-    audioEl.loop=true;
-    audioEl.play().catch(()=>{ alert('Reprodução automática bloqueada — permita o som manualmente.'); });
-    musicOn=true; alert('Musiquinha ativada (se o navegador permitir).');
-  } else {
-    if(audioEl){ audioEl.pause(); audioEl=null; } musicOn=false;
-  }
-}
+    const BANK = {
+      anatomia: [
+        {
+          id: 1,
+          q: `(Aula 01) Explique detalhadamente o que é o plano sagital e como ele difere do plano coronal e do transversal. Dê um exemplo clínico onde o conhecimento desse plano é essencial (por exemplo, numa imagem de ressonância magnética) e escolha a alternativa correta:`,
+          opts: [
+            `Plano sagital divide o corpo em direita/esquerda; é usado para avaliar assimetrias. (Correto)`,
+            `Plano coronal divide em direita/esquerda e é idêntico ao sagital.`,
+            `Plano transversal é vertical e divide frontalmente o corpo.`,
+            `Os três termos são intercambiáveis em imagens médicas.`
+          ],
+          a: 0
+        },
+        {
+          id: 2,
+          q: `(Aula 01) Defina as direções anatômicas 'proximal' e 'distal' e escolha a alternativa que melhor aplica esses termos a uma fratura no úmero proximal:`,
+          opts: [
+            `Proximal indica mais próximo do tronco; úmero proximal está mais próximo do ombro. (Correto)`,
+            `Distal indica mais próximo do tronco; úmero proximal está mais próximo do pulso.`,
+            `Proximal e distal são usados apenas para estruturas internas, não ossos.`,
+            `Proximal significa superficial; distal significa profundo.`
+          ],
+          a: 0
+        },
+        {
+          id: 3,
+          q: `(Aula 02) Descreva a composição do osso compacto e do osso esponjoso e indique qual das alternativas a seguir é verdadeira em relação ao armazenamento mineral e à hematopoiese:`,
+          opts: [
+            `O osso compacto contém medula vermelha em toda sua extensão.`,
+            `O osso esponjoso tem espaços medulares que podem abrigar medula vermelha e participar da hematopoiese. (Correto)`,
+            `Somente o osso cortical armazena cálcio; o esponjoso não contém minerais.`,
+            `Nenhum osso participa da hematopoiese após o nascimento.`
+          ],
+          a: 1
+        },
+        {
+          id: 4,
+          q: `(Aula 02) Explique o papel do periósteo na reparação óssea e escolha a alternativa correta sobre suas funções:`,
+          opts: [
+            `O periósteo é inerte e não participa da cicatrização óssea.`,
+            `O periósteo contém células osteoprogenitoras que ajudam na formação de osso novo após fratura. (Correto)`,
+            `O periósteo é a cavidade medular onde fica a medula óssea.`,
+            `O periósteo é um ligamento que une ossos adjacentes.`
+          ],
+          a: 1
+        },
+        {
+          id: 5,
+          q: `(Aula 03) Ao estudar o joelho, descreva os principais componentes de uma articulação sinovial e escolha a alternativa que descreve corretamente a função do líquido sinovial:`,
+          opts: [
+            `O líquido sinovial nutre a cartilagem e lubrifica a articulação, reduzindo atrito durante o movimento. (Correto)`,
+            `O líquido sinovial é um fluido sanguíneo que coagula para fechar lesões.`,
+            `O líquido sinovial é a matriz que forma o osso subcondral.`,
+            `O líquido sinovial é tóxico e precisa ser removido em todas as lesões.`
+          ],
+          a: 0
+        },
+        {
+          id: 6,
+          q: `(Aula 03) Diferencie menisco de ligamento no joelho em termos anatômicos e função; escolha a alternativa correta:`,
+          opts: [
+            `Meniscos são estruturas fibrocartilaginosas que aumentam congruência articular; ligamentos conectam osso a osso para estabilidade. (Correto)`,
+            `Meniscos conectam osso a osso; ligamentos são fibrocartilagens que absorvem impacto.`,
+            `Meniscos produzem sinóvia; ligamentos são a camada externa da cápsula.`,
+            `Meniscos são vasos sanguíneos; ligamentos são nervos.`
+          ],
+          a: 0
+        },
+        {
+          id: 7,
+          q: `(Aula 04) Explique a diferença funcional entre circulação pulmonar e circulação sistêmica e identifique qual alternativa descreve corretamente o trajeto do sangue venoso até arterial:`,
+          opts: [
+            `Sangue venoso → átrio direito → ventrículo direito → artéria pulmonar → pulmões → veias pulmonares → átrio esquerdo (Correto)`,
+            `Sangue venoso → ventrículo esquerdo → pulmões → átrio direito`,
+            `Sangue venoso passa direto para a aorta sem passar pelos pulmões`,
+            `Circulação pulmonar transporta nutrientes aos tecidos; sistêmica remove CO₂.`
+          ],
+          a: 0
+        },
+        {
+          id: 8,
+          q: `(Aula 04) Explique o papel do nó sinoatrial (marca-passo) e do feixe AV na condução elétrica do coração; escolha a alternativa correta:`,
+          opts: [
+            `O nó sinoatrial inicia o impulso elétrico; o feixe AV transmite ao ventrículo permitindo contração coordenada. (Correto)`,
+            `O nó sinoatrial bloqueia o impulso elétrico; o feixe AV gera o estímulo inicial.`,
+            `Ambos são apenas tecidos musculares sem função elétrica.`,
+            `O nó AV é responsável por oxigenar o sangue no ventrículo.`
+          ],
+          a: 0
+        },
+        {
+          id: 9,
+          q: `(Aula 05) Descreva a função das pregas vocais e o que ocorre quando há paralisia de uma prega vocal; escolha a alternativa que melhor corresponde à consequência clínica:`,
+          opts: [
+            `Paralisia de uma prega vocal pode causar rouquidão e risco de aspiração; as pregas participam da fonação e proteção das vias aéreas. (Correto)`,
+            `Paralisia vocal só afeta o olfato, sem impacto na fonação.`,
+            `Pregas vocais são usadas apenas para filtração do ar.`,
+            `Paralisia das pregas vocais causa hemorragia pulmonar imediata.`
+          ],
+          a: 0
+        },
+        {
+          id: 10,
+          q: `(Aula 05) Explique a importância dos alvéolos na troca gasosa e qual das alternativas descreve corretamente a característica essencial para a difusão de O₂/CO₂:`,
+          opts: [
+            `Alvéolos possuem parede extremamente fina (epitélio tipo I) e extensa superfície, permitindo difusão eficiente de gases. (Correto)`,
+            `Alvéolos são preenchidos por células musculares que bombeiam ar ativamente.`,
+            `A troca gasosa ocorre apenas na traqueia, não nos alvéolos.`,
+            `Alvéolos têm parede espessa para proteger contra perda de ar.`
+          ],
+          a: 0
+        },
+        {
+          id: 11,
+          q: `(Nervoso) Descreva a diferença entre SNC e SNP e escolha a alternativa correta sobre proteção do SNC:`,
+          opts: [
+            `SNC = encéfalo + medula; protegido por crânio, vértebras, meninges e LCR. (Correto)`,
+            `SNC é apenas nervos periféricos que não têm proteção óssea.`,
+            `SNP inclui encéfalo; SNC é somente pele.`,
+            `SNC não possui proteção alguma.`
+          ],
+          a: 0
+        },
+        {
+          id: 12,
+          q: `(Músculo) Explique a estrutura do sarcômero e sua importância na contração muscular; qual alternativa descreve corretamente o papel dos filamentos de actina e miosina?`,
+          opts: [
+            `Miosina interage com actina para gerar deslizamento e encurtamento do sarcômero (contração). (Correto)`,
+            `Actina é a proteína motora principal; miosina é passiva.`,
+            `Sarcômero é apenas tecido conjuntivo, sem filamentos.`,
+            `Actina e miosina não participam da contração, apenas do relaxamento.`
+          ],
+          a: 0
+        },
+        {
+          id: 13,
+          q: `(Ossos) Em termos de classificação, qual alternativa define corretamente um osso sesamoide e dê um exemplo clínico onde ele é importante?`,
+          opts: [
+            `Osso sesamoide é pequeno, encontrado em tendões (ex.: patela) e protege tendões contra atrito. (Correto)`,
+            `Osso sesamoide é um osso longo encontrado no fêmur.`,
+            `Sesamoides são cartilagens que revestem articulações. `,
+            `Todos os ossos do corpo são sesamoides.`
+          ],
+          a: 0
+        },
+        {
+          id: 14,
+          q: `(Coluna) Explique as curvaturas normais da coluna vertebral e qual alternativa corresponde a uma alteração patológica chamada cifose:`,
+          opts: [
+            `Cifose é curvatura excessiva da região torácica (corcunda). (Correto)`,
+            `Cifose é aumento da lordose lombar.`,
+            `Cifose significa reta ausência de curvatura.`,
+            `Cifose é sinônimo de escoliose.`
+          ],
+          a: 0
+        },
+        {
+          id: 15,
+          q: `(Vascular) Diferencie artéria de veia em termos de estrutura e função; escolha a alternativa correta:`,
+          opts: [
+            `Artérias têm parede mais espessa e lidam com alta pressão; veias têm válvulas e conduzem sangue ao coração. (Correto)`,
+            `Veias têm paredes mais espessas que artérias e suportam maior pressão.`,
+            `Artérias possuem válvulas internas como veias.`,
+            `Veias sempre transportam sangue arterial oxigenado.`
+          ],
+          a: 0
+        },
+        {
+          id: 16,
+          q: `(Respiração) Explique o papel da pleura visceral e parietal e escolha a alternativa sobre o que ocorre em um pneumotórax:`,
+          opts: [
+            `Entrada de ar na cavidade pleural provoca colapso pulmonar devido à perda do vácuo pleural. (Correto)`,
+            `Pneumotórax aumenta a capacidade pulmonar de forma sustentável.`,
+            `Pleura é impermeável e não participa em patologias respiratórias.`,
+            `Pneumotórax somente ocorre por infecção viral.`
+          ],
+          a: 0
+        },
+        {
+          id: 17,
+          q: `(Terminologia) Explique o termo 'medial' e escolha a alternativa que o aplica corretamente:`,
+          opts: [
+            `Medial indica mais próximo da linha média; o polegar é lateral à linha média da mão. (Correto)`,
+            `Medial significa mais próximo à superfície do corpo.`,
+            `Medial é o mesmo que proximal.`,
+            `Medial significa longe da linha média.`
+          ],
+          a: 0
+        },
+        {
+          id: 18,
+          q: `(Circulação) Explique brevemente o sistema porta hepático e escolha a alternativa correta sobre sua função:`,
+          opts: [
+            `Veias do sistema porta transportam sangue do trato gastrointestinal para o fígado para processamento de nutrientes. (Correto)`,
+            `Sistema porta transporta sangue diretamente para os pulmões.`,
+            `Sistema porta é um conjunto de artérias que irrigam o cérebro.`,
+            `Sistema porta remove linfa diretamente para a bile.`
+          ],
+          a: 0
+        },
+        {
+          id: 19,
+          q: `(Princípios) Defina 'hematopoiese' e escolha a alternativa que identifica um órgão hematopoiético primário no adulto:`,
+          opts: [
+            `Medula óssea vermelha é o principal sítio de hematopoiese em adultos. (Correto)`,
+            `Fígado é o único sítio de hematopoiese em adultos.`,
+            `Pulmão é o principal órgão hematopoiético.`,
+            `A pele produz células sanguíneas continuamente.`
+          ],
+          a: 0
+        },
+        {
+          id: 20,
+          q: `(Prático) Em imagem de RX, explique porque fraturas deslocadas do úmero proximal podem comprometer a vascularização da cabeça do úmero e escolha alternativa correta sobre risco de necrose avascular:`,
+          opts: [
+            `Lesão vascular nas artérias que irrigam a cabeça do úmero pode causar necrose avascular; fraturas proximais têm esse risco aumentado. (Correto)`,
+            `Fraturas proximais melhoram irrigação da cabeça do úmero.`,
+            `Cabeça do úmero não depende de suprimento vascular.`,
+            `Necrose avascular acontece apenas por infecções, não por fratura.`
+          ],
+          a: 0
+        }
+      ],
+      patologia: [
+        {
+          id: 1,
+          q: `(Lesão celular) Defina lesão celular reversível e irreversível. Em seguida, escolha a alternativa que descreve corretamente um agente que causa lesão irreversível:`,
+          opts: [
+            `Isquemia prolongada seguida de anóxia pode levar à lesão irreversível (necrose). (Correto)`,
+            `Exposição transitória a calor moderado sempre causa lesão irreversível.`,
+            `Danos leves por hipotermia são sempre irreversíveis.`,
+            `Nenhum agente causa lesão irreversível; todas as lesões são reversíveis.`
+          ],
+          a: 0
+        },
+        {
+          id: 2,
+          q: `(Apoptose x Necrose) Compare apoptose e necrose em mecanismo e resposta inflamatória. Escolha a alternativa correta:`,
+          opts: [
+            `Apoptose é morte programada sem inflamação; necrose é patológica e geralmente induz inflamação. (Correto)`,
+            `Apoptose causa intensa inflamação; necrose é silenciosa.`,
+            `Ambos são processos idênticos com nomes diferentes.`,
+            `Necrose é sempre benigna e desejável.`
+          ],
+          a: 0
+        },
+        {
+          id: 3,
+          q: `(Tipos de necrose) Dê exemplos clínicos: coagulação, liquefativa e gangrena. Qual alternativa relaciona corretamente uma necrose liquefativa a uma condição clínica?`,
+          opts: [
+            `Abscesso cerebral por infecção bacteriana leva a necrose liquefativa. (Correto)`,
+            `Infarto do miocárdio apresenta necrose liquefativa típica.`,
+            `Gangrena seca e liquefativa são sinônimos exatos.`,
+            `Coagulação é característica de pus.`
+          ],
+          a: 0
+        },
+        {
+          id: 4,
+          q: `(Hemostasia e trombose) Explique os três componentes clássicos da tríade de Virchow e escolha a alternativa que não pertence a ela:`,
+          opts: [
+            `Lesão endotelial, estase/fluxo anormal, hipercoagulabilidade (tríplice de Virchow). (Correto como conjunto)`,
+            `Infecção bacteriana direta local não é explicitamente um dos três, embora possa contribuir.`,
+            `Hipotensão arterial é um dos elementos centrais da tríade.`,
+            `A tríade descreve fatores que predispõem à trombose.`
+          ],
+          a: 0
+        },
+        {
+          id: 5,
+          q: `(Embolia) Paciente desenvolve embolia pulmonar após trombose em membro inferior. Explique por que a trombose venosa pode evoluir para embolia pulmonar e escolha a alternativa correta:`,
+          opts: [
+            `Êmbolos venosos viajam pela veia cava até o coração direito e são lançados nas artérias pulmonares, causando obstrução. (Correto)`,
+            `Trombo venoso sempre fica local e nunca causa embolia.`,
+            `Êmbolos venosos viajam diretamente para o cérebro causando AVC isquêmico.`,
+            `Embolia pulmonar é causada apenas por ar, nunca por trombos sanguíneos.`
+          ],
+          a: 0
+        },
+        {
+          id: 6,
+          q: `(Isquemia e infarto) Diferencie isquemia de infarto e indique qual alternativa representa corretamente a consequência celular da isquemia prolongada:`,
+          opts: [
+            `Isquemia = redução do fluxo sanguíneo; infarto = necrose por isquemia prolongada. (Correto)`,
+            `Isquemia é sinônimo de hemorragia; infarto é cura do tecido.`,
+            `Isquemia sempre melhora a função tecidual.`,
+            `Infarto é reversível sem consequências.`
+          ],
+          a: 0
+        },
+        {
+          id: 7,
+          q: `(Edema) Explique as causas de edema (pressão hidrostática aumentada, pressão oncótica reduzida, retenção de sódio) e escolha a alternativa que descreve corretamente uma causa de edema sistêmico:`,
+          opts: [
+            `Insuficiência cardíaca congestiva aumenta pressão venosa e causa edema periférico e pulmonar. (Correto)`,
+            `Perda de albumina sempre diminui a retenção de líquidos no interstício.`,
+            `Edema nunca ocorre por insuficiência renal.`,
+            `Edema é sempre causado por infecções bacterianas locais.`
+          ],
+          a: 0
+        },
+        {
+          id: 8,
+          q: `(Aterosclerose) Descreva as etapas da formação da placa aterosclerótica e escolha a alternativa que identifica um fator de risco clássico:`,
+          opts: [
+            `Hipertensão, tabagismo e hipercolesterolemia são fatores de risco clássicos. (Correto)`,
+            `Boa dieta rica em fibras é fator de risco.`,
+            `Aterosclerose não está relacionada a dieta ou hipertensão.`,
+            `Jovens sem comorbidades nunca apresentam aterosclerose.`
+          ],
+          a: 0
+        },
+        {
+          id: 9,
+          q: `(Pigmentos) Explique a diferença entre pigmentos endógenos e exógenos, com um exemplo de cada; escolha a alternativa correta sobre bilirrubina:`,
+          opts: [
+            `Aumento de bilirrubina sérica provoca icterícia e é um exemplo de pigmento endógeno. (Correto)`,
+            `Bilirrubina é sempre exógena e entra no corpo pela alimentação.`,
+            `Pigmentos exógenos são produzidos pelo próprio organismo.`,
+            `Bilirrubina não é visível clinicamente.`
+          ],
+          a: 0
+        },
+        {
+          id: 10,
+          q: `(Calcificações) Diferencie calcificação distrófica de metastática e escolha a alternativa que descreve corretamente a calcificação distrófica:`,
+          opts: [
+            `Ocorre em tecido previamente danificado com cálcio sérico normal (ex.: válvula cardíaca necrosada). (Correto)`,
+            `Ocorre apenas quando cálcio sérico está muito alto e sempre em tecido saudável.`,
+            `Calcificação distrófica nunca acontece em locais de necrose.`,
+            `Calcificação metastática é produto de infecção bacteriana local.`
+          ],
+          a: 0
+        },
+        {
+          id: 11,
+          q: `(Patologia celular) Explique adaptações celulares: hipertrofia, hiperplasia, atrofia e metaplasia. Em qual alternativa a descrição está correta?`,
+          opts: [
+            `Metaplasia é substituição de um tipo celular por outro, frequentemente reversível; ex.: epitélio escamoso em fumantes. (Correto)`,
+            `Hipertrofia reduz o volume celular.`,
+            `Hiperplasia é perda completa do tecido.`,
+            `Atrofia é sinônimo de metaplasia.`
+          ],
+          a: 0
+        },
+        {
+          id: 12,
+          q: `(Inflamação) Quais são os sinais cardinais da inflamação e qual alternativa lista corretamente quatro deles?`,
+          opts: [
+            `Rubor, calor, dor e edema (além da perda de função). (Correto)`,
+            `Febre, perda de apetite, fraqueza e sede são os sinais cardinais.`,
+            `Somente febre é sinal cardinal da inflamação.`,
+            `Os sinais cardinais foram abolidos no século XX.`
+          ],
+          a: 0
+        },
+        {
+          id: 13,
+          q: `(Sequelas) Explique como a perda de adesão terapêutica (não adesão) pode afetar resultados de ensaios clínicos e escolha a alternativa correta:`,
+          opts: [
+            `Não adesão reduz validade do estudo e pode mascarar eficácia do tratamento; por isso é controlada em ensaios. (Correto)`,
+            `Não adesão aumenta automaticamente eficácia do fármaco.`,
+            `Ensaios clínicos não precisam considerar adesão do paciente.`,
+            `Não existe relação entre não adesão e efeitos adversos.`
+          ],
+          a: 0
+        },
+        {
+          id: 14,
+          q: `(Diagnóstico) Ao analisar uma biópsia com necrose coagulatica típica de infarto renal, qual característica morfológica você espera encontrar? Escolha a alternativa correta:`,
+          opts: [
+            `Preservação da arquitetura tecidual inicial com perda do núcleo celular e citoplasma eosinofílico; típico de necrose por isquemia. (Correto)`,
+            `Formação de pus com liquefação completa do tecido desde o início.`,
+            `Infiltrado linfocitário exclusivo com preservação nuclear absoluta.`,
+            `Nenhuma alteração morfológica é visível em necrose coagulatica.`
+          ],
+          a: 0
+        },
+        {
+          id: 15,
+          q: `(Patologia de órgão) Explique a relação entre cirrose hepática e risco de sangramento por varizes esofágicas e escolha a alternativa correta:`,
+          opts: [
+            `Cirrhose leva a hipertensão portal, formação de colaterais (varizes) e risco de sangramento grave. (Correto)`,
+            `Cirrhose protege contra sangramentos por aumentar coagulação.`,
+            `Cirrhose nunca afeta o sistema venoso esofágico.`,
+            `Varizes esofágicas não têm relação com função hepática.`
+          ],
+          a: 0
+        },
+        {
+          id: 16,
+          q: `(Patologia infecciosa) Explique por que infecções bacterianas podem causar necrose liquefativa e escolha a alternativa correta:`,
+          opts: [
+            `Enzimas degradativas liberadas por neutrófilos e bactérias digerem tecido, formando pus e necrose liquefativa. (Correto)`,
+            `Bactérias sempre induzem apoptose sem formação de pus.`,
+            `Infecções virais causam exclusivamente calcificação em todos os tecidos.`,
+            `Infecções bacterianas solidificam o tecido em vez de digeri-lo.`
+          ],
+          a: 0
+        },
+        {
+          id: 17,
+          q: `(Distúrbios hematológicos) Explique o que é anemia aplástica e escolha a alternativa que melhor descreve sua fisiopatologia:`,
+          opts: [
+            `Depressão da medula óssea com falha na produção de células sanguíneas, levando a pancitopenia. (Correto)`,
+            `Aumento indiscriminado da produção de hemácias pela medula.`,
+            `Anemia aplástica é causada por hiperatividade esplênica sem relação medular.`,
+            `Anemia aplástica é melhora do transporte de oxigênio.`
+          ],
+          a: 0
+        },
+        {
+          id: 18,
+          q: `(Imunopatologia) Como a inflamação crônica difere da aguda e qual alternativa representa uma causa típica de inflamação crônica?`,
+          opts: [
+            `Infecção persistente (ex.: tuberculose) e exposição contínua a agentes tóxicos podem causar inflamação crônica. (Correto)`,
+            `Inflamação crônica dura menos que a aguda e é sempre benigna.`,
+            `Inflamação crônica está relacionada apenas a trauma agudo.`,
+            `Inflamação crônica nunca envolve células mononucleares.`
+          ],
+          a: 0
+        },
+        {
+          id: 19,
+          q: `(Patologia vascular) Conceitue isquemia-reperfusão e escolha a alternativa que melhor descreve o dano reperfusional:`,
+          opts: [
+            `Reperfusão pode gerar estresse oxidativo, inflamação e piorar lesão inicial por produção de radicais livres. (Correto)`,
+            `Reperfusão sempre restaura integralmente a função sem danos.`,
+            `Dano reperfusional é mito e não tem base fisiológica.`,
+            `Reperfusão impede que qualquer célula morra no local.`
+          ],
+          a: 0
+        },
+        {
+          id: 20,
+          q: `(Patologia prática) Em um cenário clínico com necrose coagulativa num rim e calcificação distrófica subsequente, qual seria o mecanismo provável para o depósito de cálcio? Escolha a alternativa correta:`,
+          opts: [
+            `Cálcio se deposita no tecido lesionado por perda de controle local do cálcio e fosfato mesmo com níveis séricos normais. (Correto)`,
+            `Cálcio sempre só se deposita se a concentração sérica for elevada ao extremo.`,
+            `Calcificação distrófica implica que o tecido está mais saudável e não lesionado.`,
+            `Depósitos de cálcio ocorrem exclusivamente por ingestão oral excessiva de cálcio.`
+          ],
+          a: 0
+        }
+      ],
+      quimica: [
+        {
+          id: 1,
+          q: `(Modelo atômico) Resuma a evolução dos modelos atômicos (Dalton → Thomson → Rutherford → Bohr → Quântico) e qual alternativa abaixo descreve corretamente o modelo quântico:`,
+          opts: [
+            `Modelo quântico descreve orbitais como regiões probabilísticas onde elétrons têm maior chance de ser encontrados. (Correto)`,
+            `Modelo quântico assume elétrons em órbitas circulares fixas como no modelo de Bohr.`,
+            `Modelo de Dalton descreve orbitais probabilísticos.`,
+            `Modelo de Thomson introduziu orbitais de Schrödinger.`
+          ],
+          a: 0
+        },
+        {
+          id: 2,
+          q: `(Estrutura atômica) Defina número atômico (Z) e número de massa (A). Para um átomo neutro de carbono com A≈12 e Z=6, quantos prótons, nêutrons e elétrons existem? Escolha a alternativa correta:`,
+          opts: [
+            `6 prótons, 6 nêutrons, 6 elétrons. (Correto)`,
+            `6 prótons, 12 nêutrons, 6 elétrons.`,
+            `12 prótons, 6 nêutrons, 12 elétrons.`,
+            `0 prótons, 12 nêutrons, 6 elétrons.`
+          ],
+          a: 0
+        },
+        {
+          id: 3,
+          q: `(Ligações) Compare ligação iônica e covalente; escolha a alternativa que descreve corretamente uma ligação iônica e um exemplo clássico:`,
+          opts: [
+            `Transferência completa de elétrons de um metal para um não metal — exemplo NaCl. (Correto)`,
+            `Compartilhamento de elétrons idêntico à ligação metálica — exemplo NaCl.`,
+            `Deslocalização de elétrons característica de ligação iônica — exemplo O2.`,
+            `Ligação iônica forma sempre moléculas com baixa temperatura de fusão.`
+          ],
+          a: 0
+        },
+        {
+          id: 4,
+          q: `(Propriedades) Em termos de propriedades físicas, como costumam diferir compostos iônicos de covalentes? Escolha a alternativa correta:`,
+          opts: [
+            `Iônicos geralmente têm pontos de fusão mais altos e conduzem eletricidade em solução; covalentes têm pontos variados e não conduzem em solução. (Correto)`,
+            `Covalentes sempre têm maior ponto de fusão que iônicos.`,
+            `Iônicos nunca se dissolvem em água.`,
+            `Covalentes sempre conduzem eletricidade sólida.`
+          ],
+          a: 0
+        },
+        {
+          id: 5,
+          q: `(Teoria do Octeto) Explique a Teoria do Octeto e escolha a alternativa que a representa corretamente:`,
+          opts: [
+            `Átomos buscam completar 8 elétrons na camada de valência para estabilidade; base para entender ligações. (Correto)`,
+            `Teoria do Octeto diz que elementos serão estáveis com 2 elétrons apenas em todas as circunstâncias.`,
+            `Octeto significa que átomos buscam 16 elétrons sempre.`,
+            `Teoria do Octeto descreve apenas íons positivos.`
+          ],
+          a: 0
+        },
+        {
+          id: 6,
+          q: `(Ligação metálica) Explique a ligação metálica e suas propriedades e escolha a alternativa correta:`,
+          opts: [
+            `Elétrons deslocalizados formam 'mar de elétrons', conferindo condutividade elétrica e maleabilidade. (Correto)`,
+            `Ligação metálica é sempre fraca e conduz mal calor.`,
+            `Metais não apresentam deslocalização de elétrons.`,
+            `Ligação metálica é idêntica à ligação covalente polar.`
+          ],
+          a: 0
+        },
+        {
+          id: 7,
+          q: `(Isótopos) O que são isótopos? Escolha a alternativa correta incluindo um exemplo de aplicação:`,
+          opts: [
+            `Átomos com mesmo número atômico (mesmo Z) e diferentes números de massa; ex.: C-14 usado em datação. (Correto)`,
+            `Isótopos são elementos com Z diferentes e propriedades químicas idênticas.`,
+            `Isótopos são moléculas iônicas especiais.`,
+            `Isótopos não são usados na medicina ou arqueologia.`
+          ],
+          a: 0
+        },
+        {
+          id: 8,
+          q: `(Reatividade) Como a configuração eletrônica influencia reatividade química? Escolha alternativa que melhor sintetiza o conceito:`,
+          opts: [
+            `Átomos com camadas incompletas tendem a reagir para atingir configuração mais estável (octeto), determinando reatividade. (Correto)`,
+            `Configuração eletrônica não tem impacto na reatividade.`,
+            `Átomos com camadas completas são os mais reativos.`,
+            `Reatividade depende apenas do estado físico, não da eletrônica.`
+          ],
+          a: 0
+        },
+        {
+          id: 9,
+          q: `(Ligação covalente) Em uma ligação covalente polar, o que significa 'parcialmente negativo' e 'parcialmente positivo' e escolha a alternativa correta:`,
+          opts: [
+            `Átomo mais eletronegativo atrai elétrons, ficando parcialmente negativo; o outro fica parcialmente positivo (ex.: H–O em H2O). (Correto)`,
+            `Polaridade indica que o átomo perde totalmente elétrons para outro.`,
+            `Em ligação covalente polar não há diferença de eletronegatividade.`,
+            `Polaridade só existe em ligantes metálicos.`
+          ],
+          a: 0
+        },
+        {
+          id: 10,
+          q: `(Soluções) Diferencie solução de suspensão e escolha a alternativa correta sobre comportamentos:`,
+          opts: [
+            `Solução é homogênea (soluto dissolvido); suspensão tem partículas dispersas que sedimentam (ex.: suspensão de antibiótico). (Correto)`,
+            `Solução sempre tem partículas visíveis e sedimenta rapidamente.`,
+            `Suspensão é sempre mais homogênea que solução.`,
+            `Soluções e suspensões são sinônimos.`
+          ],
+          a: 0
+        },
+        {
+          id: 11,
+          q: `(Exemplo prático) Qual dos seguintes é um exemplo clássico de composto iônico e por que? Escolha a alternativa correta:`,
+          opts: [
+            `Cloreto de sódio (NaCl) — metal doando elétron para não metal, formando íons. (Correto)`,
+            `Água (H2O) é um composto iônico clássico.`,
+            `Gás oxigênio (O2) é um composto iônico.`,
+            `Methano (CH4) é iônico por compartilhamento igual de elétrons.`
+          ],
+          a: 0
+        },
+        {
+          id: 12,
+          q: `(Química e Biomedicina) Explique brevemente por que ligações covalentes são fundamentais em biomoléculas e escolha a alternativa correta:`,
+          opts: [
+            `Ligações covalentes formam esqueleto de moléculas orgânicas (proteínas, carboidratos, lipídios) permitindo estabilidade estrutural. (Correto)`,
+            `Ligações covalentes não existem em biomoléculas.`,
+            `Biomoléculas dependem apenas de ligações iônicas para estrutura.`,
+            `Ligações covalentes são sempre fracas e transitórias nas proteínas.`
+          ],
+          a: 0
+        },
+        {
+          id: 13,
+          q: `(Conceito) O que é eletronegatividade e qual das alternativas a descreve corretamente?`,
+          opts: [
+            `Medida de tendência de um átomo em atrair elétrons numa ligação química; influencia polaridade. (Correto)`,
+            `Eletronegatividade é número total de elétrons de um átomo.`,
+            `Eletronegatividade é sinônimo de massa atômica.`,
+            `Eletronegatividade não afeta propriedades químicas.`
+          ],
+          a: 0
+        },
+        {
+          id: 14,
+          q: `(Redox) Em termos simples, defina reação de oxidação-redução e escolha alternativa correta:`,
+          opts: [
+            `Oxidação = perda de elétrons; redução = ganho de elétrons; reações essenciais em metabolismo celular. (Correto)`,
+            `Oxidação significa ganhar elétrons; redução significa perder.`,
+            `Redox não ocorre em sistemas biológicos.`,
+            `Oxidação e redução são independentes entre si.`
+          ],
+          a: 0
+        },
+        {
+          id: 15,
+          q: `(pH e absorção) Explique o que é pH e por que ácidos fracos são mais absorvidos em ambiente ácido; escolha a alternativa correta:`,
+          opts: [
+            `Ácidos fracos permanecem não ionizados em meio ácido, atravessando membranas lipídicas por difusão passiva. (Correto)`,
+            `pH não afeta absorção de fármacos.`,
+            `Ácidos fracos são sempre absorvidos melhor em meio alcalino.`,
+            `pH só influencia temperatura, não absorção.`
+          ],
+          a: 0
+        },
+        {
+          id: 16,
+          q: `(Estequiometria básica) Se você tem 2 mols de NaCl, quantos mols de Na+ estão presentes e escolha a alternativa correta:`,
+          opts: [
+            `2 mols de Na+ (cada unidade de NaCl fornece 1 Na+). (Correto)`,
+            `1 mol de Na+ apenas.`,
+            `4 mols de Na+ automaticamente por dissociação parcial.`,
+            `Nenhum íon de Na+ é formado em solução aquosa.`
+          ],
+          a: 0
+        },
+        {
+          id: 17,
+          q: `(Ligação e propriedades) Qual alternativa relaciona corretamente ligação e propriedade macroscópica:`,
+          opts: [
+            `Redes covalentes (ex.: diamante) têm alto ponto de fusão e grande dureza. (Correto)`,
+            `Todos os compostos covalentes são gasosos à temperatura ambiente.`,
+            `Ligações iônicas são sempre moleculares voláteis.`,
+            `Ligações metálicas não conferem condutividade.`
+          ],
+          a: 0
+        },
+        {
+          id: 18,
+          q: `(Aplicação clínica) Por que entender pKa e pH é importante para a farmacologia oral? Escolha alternativa correta:`,
+          opts: [
+            `pKa determina grau de ionização de um fármaco em um pH dado, influenciando sua absorção intestinal. (Correto)`,
+            `pKa é irrelevante para fármacos; só importa para metais.`,
+            `pH do estômago não muda a ionização de fármacos.`,
+            `Ionização não influencia biodisponibilidade.`
+          ],
+          a: 0
+        },
+        {
+          id: 19,
+          q: `(Conceito) O que é polaridade molecular e por que ela influencia solubilidade em água? Escolha a alternativa correta:`,
+          opts: [
+            `Moléculas polares interagem com água por ligações de H e dipolo-dipolo, sendo mais solúveis. (Correto)`,
+            `Moléculas polares são insolúveis em água.`,
+            `Polaridade molecular não tem relação com solubilidade.`,
+            `Moléculas não polares se dissolvem melhor em água que as polares.`
+          ],
+          a: 0
+        },
+        {
+          id: 20,
+          q: `(Resumo prático) Resuma por que química básica é essencial em biomedicina e escolha a alternativa:`,
+          opts: [
+            `Entender estruturas atômicas e ligações ajuda a compreender metabolismo, farmacocinética e estrutura de biomoléculas. (Correto)`,
+            `Química básica é separada da biomedicina e raramente útil.`,
+            `Biomedicina depende somente da anatomia, não da química.`,
+            `Química é apenas útil em indústria, não em clínica.`
+          ],
+          a: 0
+        }
+      ]
+    };
 
-/* ZIP button behavior (UI only) */
-function requestZip(){
-  const box = document.getElementById('zipBox');
-  if(box.style.display === 'block'){ box.style.display='none'; box.setAttribute('aria-hidden','true'); }
-  else { box.style.display='block'; box.setAttribute('aria-hidden','false'); }
-}
+    /* ---------- exam logic (show all 20) ---------- */
+    let currentQuestions = [];
+    let examStarted = false;
 
-/* EU TE AMO modal */
-function showLove(){
-  const back = document.getElementById('modalBack'); const modal = document.getElementById('loveModal');
-  back.style.display='flex'; setTimeout(()=>modal.classList.add('show'),40); back.setAttribute('aria-hidden','false');
-  const txt = document.getElementById('loveText');
-  txt.animate([{transform:'scale(0.92)', opacity:0.9},{transform:'scale(1)',opacity:1},{transform:'scale(1.04)',opacity:1}],{duration:900,iterations:3,easing:'ease-out'});
-}
-function closeLove(){ const back = document.getElementById('modalBack'); const modal = document.getElementById('loveModal'); modal.classList.remove('show'); setTimeout(()=>{ back.style.display='none'; back.setAttribute('aria-hidden','true'); },300); }
+    function startSubjectExam(subject){
+      const bank = BANK[subject] || [];
+      // clone to avoid mutation
+      currentQuestions = bank.slice();
+      examStarted = true;
+      renderExam(subject);
+      // switch to exams tab view area in case user is elsewhere
+      showSection('provas');
+    }
 
-/* init */
-showSection('anatomia');
-</script>
+    function renderExam(subject){
+      const area = document.getElementById('examArea');
+      area.innerHTML = '';
+      const title = document.createElement('div');
+      title.innerHTML = `<div style="font-weight:900;margin-bottom:10px">Prova • ${subject.toUpperCase()} — ${currentQuestions.length} questões</div>`;
+      area.appendChild(title);
+
+      currentQuestions.forEach((q, idx) => {
+        const qbox = document.createElement('div');
+        qbox.className = 'question';
+        qbox.innerHTML = `<div class="qTitle">Q${idx+1}. ${q.q}</div>`;
+        const opts = document.createElement('div');
+        q.opts.forEach((opt, i) => {
+          const id = `ans_${idx}_${i}`;
+          const lab = document.createElement('label');
+          lab.className = 'option';
+          lab.innerHTML = `<input type="radio" name="ans_${idx}" value="${i}"> <span>${String.fromCharCode(65+i)}. ${opt}</span>`;
+          opts.appendChild(lab);
+        });
+        qbox.appendChild(opts);
+        area.appendChild(qbox);
+      });
+
+      // action buttons
+      const hr = document.createElement('hr');
+      hr.style.margin = '12px 0';
+      area.appendChild(hr);
+
+      const actions = document.createElement('div');
+      actions.className = 'actionRow';
+      actions.innerHTML = `<button class="btn" onclick="corrigirProva()">Finalizar / Corrigir</button>
+                           <button class="btn ghost" onclick="resetProva()">Zerar</button>
+                           <button class="btn ghost" onclick="refazerProva()">Refazer (embaralhar)</button>`;
+      area.appendChild(actions);
+
+      document.getElementById('resultArea').innerHTML = '';
+      window.scrollTo({ top: area.offsetTop-20, behavior: 'smooth' });
+    }
+
+    function corrigirProva(){
+      if(!examStarted){ alert('Inicie a prova primeiro.'); return; }
+      let correct = 0;
+      const answers = [];
+      currentQuestions.forEach((q, idx) => {
+        const sel = document.querySelector(`input[name="ans_${idx}"]:checked`);
+        const val = sel ? Number(sel.value) : null;
+        answers.push(val);
+        if(val === q.a) correct++;
+      });
+      const total = currentQuestions.length;
+      const pct = Math.round((correct/total)*100);
+      const res = document.getElementById('resultArea');
+      res.innerHTML = `<div style="padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff7fb,#fff);border:1px solid rgba(197,58,122,0.06);margin-top:10px">
+        <div style="font-weight:900;color:var(--accent-dark)">${correct} / ${total} corretas — <span style="color:var(--accent);font-size:20px">${pct}%</span></div>
+        <div style="margin-top:8px;font-weight:800">Gabarito e suas respostas:</div>
+      </div>`;
+      // gabarito details
+      const box = document.createElement('div');
+      box.style.marginTop = '8px';
+      currentQuestions.forEach((q, idx) => {
+        const corr = String.fromCharCode(65 + q.a);
+        const sua = answers[idx] === null ? '—' : String.fromCharCode(65 + answers[idx]);
+        const row = document.createElement('div');
+        row.className = 'small';
+        row.style.marginTop = '6px';
+        row.style.padding = '8px';
+        row.style.borderBottom = '1px dashed rgba(197,58,122,0.04)';
+        row.innerHTML = `<strong>Q${idx+1}.</strong> ${q.q} <br><strong>Gabarito:</strong> ${corr} — <strong>Sua:</strong> ${sua}`;
+        box.appendChild(row);
+      });
+      res.appendChild(box);
+
+      // offer retry
+      const again = document.createElement('div');
+      again.style.marginTop = '12px';
+      again.innerHTML = `<div class="actionRow"><button class="btn" onclick="refazerProva()">Fazer novamente (embaralhar)</button> <button class="btn ghost" onclick="resetProva()">Fechar / Limpar</button></div>`;
+      res.appendChild(again);
+      res.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetProva(){
+      document.getElementById('examArea').innerHTML = '';
+      document.getElementById('resultArea').innerHTML = '';
+      examStarted = false;
+      currentQuestions = [];
+    }
+
+    function refazerProva(){
+      if(!examStarted){ alert('Inicie a prova primeiro.'); return; }
+      // shuffle questions order
+      currentQuestions = shuffle(currentQuestions);
+      renderExam();
+      document.getElementById('resultArea').innerHTML = '';
+    }
+
+    function shuffle(a){
+      const b = a.slice();
+      for(let i=b.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [b[i], b[j]] = [b[j], b[i]];
+      }
+      return b;
+    }
+
+    // init
+    showSection('anatomia');
+  </script>
 </body>
 </html>
